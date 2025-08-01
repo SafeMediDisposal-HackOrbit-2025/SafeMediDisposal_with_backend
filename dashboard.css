@@ -1,7 +1,7 @@
 /* --- GLOBAL STYLES & VARIABLES --- */
 :root {
-    --primary-color: #50c2c9; /* Teal color from HealthWaste */
-    --primary-dark: #028090; /* Darker teal for emphasis */
+    --primary-color: #50c2c9;
+    --primary-dark: #028090;
     --secondary-color: #F0F3F4;
     --background-color: #CADBDB;
     --text-color: #2C3E50;
@@ -10,7 +10,7 @@
     --card-shadow: rgba(0, 0, 0, 0.05);
     --success-color: #27AE60;
     --danger-color: #E74C3C;
-    --dark-card-background: #171821; /* New variable for dark background */
+    --dark-card-background: #171821;
 }
 
 * {
@@ -38,7 +38,7 @@ a {
     box-shadow: 0 4px 6px var(--card-shadow);
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(0, 0, 0, 0.08); 
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .card-title {
@@ -57,7 +57,7 @@ a {
 .sidebar {
     width: 250px;
     flex-shrink: 0;
-    background: var(--primary-color); 
+    background: var(--primary-color);
     color: var(--white-color);
     padding: 2rem 1rem;
     display: flex;
@@ -80,14 +80,9 @@ a {
     font-weight: 600;
 }
 
-/* Add styles for your logo */
 .sidebar-header .logo {
-    max-height: 70px; /* Adjust as needed */
-    width: auto; /* Maintain aspect ratio */
-    margin-right: 0.5rem; /* Space between logo and first menu item if desired */
-}
-
-.sidebar-header i {
+    max-height: 70px;
+    width: auto;
     margin-right: 0.5rem;
 }
 
@@ -147,7 +142,6 @@ a {
     outline: none;
     width: 100%;
     font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
     background: transparent;
 }
 
@@ -171,13 +165,13 @@ a {
     grid-template-areas:
         "summary summary updates"
         "categories categories fulfillment"
-        "performance engagement new-chart"; 
+        "performance engagement new-chart";
 }
 
 .summary-section { grid-area: summary; }
 .pickup-updates { grid-area: updates; }
 .top-categories { grid-area: categories; }
-.pickup-fulfillment { grid-area: fulfillment; justify-content: space-between;}
+.pickup-fulfillment { grid-area: fulfillment; justify-content: space-between; }
 .performance-rewards { grid-area: performance; }
 .hospital-engagement { grid-area: engagement; }
 .waste-distribution-chart { grid-area: new-chart; }
@@ -217,30 +211,30 @@ a {
     padding: 1rem;
     border-radius: 8px;
     font-size: 1.8rem;
-    color: var(--icon-color); 
-    background-color: rgba(255, 255, 255, 0.1); 
-    margin-bottom: 1rem; 
-    display: flex; 
+    color: var(--icon-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px; 
-    height: 60px; 
-    align-self: flex-start; 
+    width: 60px;
+    height: 60px;
+    align-self: flex-start;
 }
 
 .card-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: flex-start;
     width: 100%;
 }
 
 .card-content h4 {
-    font-size: 2rem; 
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
     line-height: 1;
-    color: var(--white-color); 
+    color: var(--white-color);
 }
 
 .card-content .metric-label {
@@ -260,25 +254,26 @@ a {
 .positive { color: var(--success-color); }
 .negative { color: var(--danger-color); }
 
-/* Pickup Updates (Stepper) */
+/* Pickup Updates Stepper */
 .stepper {
-    position: relative;
     margin-left: 1rem;
     padding-top: 0.5rem;
     min-height: 300px;
 }
 .step {
-    position: relative;
     padding-left: 2.5rem;
     padding-bottom: 3.5rem;
     min-height: 60px;
+    position: relative;
 }
 .step:last-child {
     padding-bottom: 0;
 }
-.step::before {
+.step::before, .step::after {
     content: '';
     position: absolute;
+}
+.step::before {
     left: 0;
     top: 0.25rem;
     width: 16px;
@@ -289,15 +284,14 @@ a {
     z-index: 1;
 }
 .step::after {
-    content: '';
-    position: absolute;
     left: 8px;
     top: 0.25rem;
     width: 3px;
     height: calc(100% + 1rem);
     background-color: var(--secondary-color);
 }
-.step.completed::before, .step.active::before {
+.step.completed::before,
+.step.active::before {
     border-color: var(--primary-dark);
 }
 .step.completed::after {
@@ -319,101 +313,87 @@ a {
     font-weight: 600;
     color: var(--text-color);
 }
- .step-time {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-top: 0.3rem;
-            opacity: 0.8;
-        }
+.step-time {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.3rem;
+    opacity: 0.8;
+}
+.step-description {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    color: var(--text-light);
+    line-height: 1.3;
+}
 
-        .step-description {
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            color: var(--text-light);
-            line-height: 1.3;
-        }
+/* Top Categories */
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+.category-item .num {
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1rem;
+    width: 2rem;
+}
+.category-item .name {
+    font-weight: 500;
+    color: var(--text-color);
+    flex: 1;
+}
+.category-item .popularity {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+.progress-bar-container {
+    flex: 1;
+    height: 8px;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    overflow: visible;
+}
+.progress-bar {
+    height: 100%;
+    border-radius: 4px;
+    position: relative;
+}
+.progress-label {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #F8F9FA;
+    color: var(--text-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.category-item .volume {
+    font-weight: 600;
+    color: var(--text-color);
+    width: 4rem;
+    text-align: right;
+    font-size: 0.9rem;
+}
 
- /* Top Categories - UPDATED to match the image */
-        .category-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .category-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .category-item .num {
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 1rem;
-            width: 2rem;
-            text-align: left;
-        }
-
-        .category-item .name {
-            font-weight: 500;
-            color: var(--text-color);
-            flex: 1;
-            min-width: 0;
-        }
-
-        .category-item .popularity {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .progress-bar-container {
-            flex: 1;
-            height: 8px;
-            background-color: var(--secondary-color);
-            border-radius: 4px;
-            position: relative;
-            overflow: visible;
-        }
-
-        .progress-bar {
-            height: 100%;
-            border-radius: 4px;
-            position: relative;
-        }
-
-        .progress-label {
-            position: absolute;
-            right: -40px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #F8F9FA;
-            color: var(--text-color);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-        }
-
-        .category-item .volume {
-            font-weight: 600;
-            color: var(--text-color);
-            width: 4rem;
-            text-align: right;
-            font-size: 0.9rem;
-        }
 /* Performance & Rewards */
 .performance-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-grow: 1;
 }
 .stats .label {
     font-size: 0.9rem;
@@ -434,9 +414,6 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-}
-.pickup-fulfillment .card-title {
-    margin-bottom: 0;
 }
 .legend {
     font-size: 0.8rem;
@@ -459,14 +436,29 @@ a {
     text-align: right;
     margin-top: -1.5rem;
 }
-.fulfillment-total p {
-    font-size: 0.8rem;
-    color: var(--text-light);
-}
 .fulfillment-total h4 {
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--primary-dark);
+}
+
+/* --- GRAPH SIZE MINIMIZATION --- */
+#fulfillment-chart,
+#performance-chart,
+#engagement-chart,
+#distribution-chart {
+    width: 100%;
+    height: 200px;
+    margin-top: 1rem;
+}
+.card .apexcharts-canvas {
+    margin: 0 auto !important;
+}
+.pickup-fulfillment,
+.performance-rewards,
+.hospital-engagement,
+.waste-distribution-chart {
+    padding: 1rem !important;
 }
 
 /* --- RESPONSIVE DESIGN --- */
@@ -481,7 +473,6 @@ a {
             "new-chart new-chart";
     }
 }
-
 @media (max-width: 992px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
@@ -501,7 +492,6 @@ a {
         flex-basis: calc(50% - 0.5rem);
     }
 }
-
 @media (max-width: 768px) {
     .sidebar {
         display: none;
@@ -515,7 +505,6 @@ a {
         width: 100%;
     }
 }
-
 @media (max-width: 576px) {
     .summary-card {
         flex-basis: 100%;
