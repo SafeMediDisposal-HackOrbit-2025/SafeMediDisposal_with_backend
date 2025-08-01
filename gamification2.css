@@ -1,0 +1,455 @@
+/* ROOT VARIABLES - Harmonized with detection.css and navstyles.css */
+:root {
+  --primary: #3a9fa5; /* Muted cyan, consistent with detection.css */
+  --primary-dark: #2e3a59; /* Dark blue, consistent with detection.css and navstyles */
+  --primary-light: #6bbcc2; /* Lighter shade of primary */
+  --secondary: #2e3a59; /* Keeping secondary as the dark blue for consistency */
+  --accent: #3a9fa5; /* Same as primary */
+
+  --cyan-50: #e0f7f8; /* Very light cyan for body background (solid) */
+  --cyan-100: #b3ecf0; /* Slightly darker light cyan for body-section background */
+  --cyan-200: #86e0e7; /* A bit more pronounced cyan for borders/accents */
+  --cyan-500: #3a9fa5;
+  --cyan-600: #328b90;
+  --cyan-700: #2a777b;
+  --cyan-800: #226466;
+  --cyan-900: #194a4c;
+
+  --white: #ffffff;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb; /* Added for consistency */
+  --gray-300: #d1d5db; /* Added for consistency */
+  --gray-400: #9ca3af; /* Added for consistency */
+  --gray-500: #6b7280; /* Added for consistency */
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827; /* Added for consistency */
+
+  /* Shadows consistent with detection.css */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Added for consistency */
+
+  /* Removed all gradient variables, using solid colors instead */
+  --success: #10b981; /* Direct color for success */
+  --gold: #f59e0b;    /* Direct color for gold/achievement */
+
+  /* Spacing variables for consistency */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+}
+
+/* Base styles for the gamification page, scoped to prevent overwrites */
+.gamification-page body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--cyan-50); /* Solid background color */
+  min-height: 100vh;
+  padding: var(--spacing-lg); /* Uses spacing variable */
+  color: var(--gray-800);
+  line-height: 1.6;
+}
+
+/* Ensure global box-sizing is not overridden for this page */
+.gamification-page * {
+  box-sizing: border-box;
+}
+
+.gamification-page h1 {
+  /* Removed gradient for h1 text */
+  color: var(--primary-dark); /* Solid color for h1 text */
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg); /* Uses spacing variable */
+  text-align: center;
+  position: relative;
+}
+
+.gamification-page h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--primary); /* Solid color for h1 underline */
+  border-radius: 2px;
+}
+
+.gamification-page .score-board {
+  background: var(--white);
+  padding: var(--spacing-lg); /* Uses spacing variable */
+  border-radius: 20px;
+  box-shadow: var(--shadow-xl);
+  max-width: 700px;
+  margin: auto;
+  border: 1px solid var(--cyan-200); /* Uses consistent cyan color */
+  position: relative;
+  overflow: hidden;
+}
+
+.gamification-page .score-board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--primary-dark); /* Solid color for score-board top border */
+}
+
+.gamification-page .score-board ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-md) 0; /* Uses spacing variable */
+  text-align: left;
+}
+
+.gamification-page .score-board li {
+  font-size: 1.1rem;
+  margin: var(--spacing-sm) 0; /* Uses spacing variable */
+  padding: var(--spacing-sm); /* Uses spacing variable */
+  background: var(--gray-50);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+  transition: all 0.3s ease;
+}
+
+.gamification-page .score-board li:hover {
+  background: var(--cyan-50); /* Uses consistent cyan color */
+  transform: translateX(5px);
+}
+
+.gamification-page .score-board li strong {
+  color: var(--primary-dark);
+  text-transform: capitalize;
+}
+
+.gamification-page .score {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-dark); /* Solid color for score text */
+  margin: var(--spacing-lg) 0 var(--spacing-sm) 0; /* Uses spacing variables */
+  text-align: center;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.gamification-page .feedback {
+  margin: var(--spacing-lg) 0; /* Uses spacing variable */
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  text-align: center;
+  padding: var(--spacing-md); /* Uses spacing variable */
+  background: var(--gray-50);
+  border-radius: 12px;
+  border: 1px solid var(--cyan-200); /* Uses consistent cyan color */
+}
+
+.gamification-page .conversion-info {
+  background: var(--cyan-100); /* Uses consistent cyan color */
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  padding: var(--spacing-md); /* Uses spacing variable */
+  margin: var(--spacing-lg) 0; /* Uses spacing variable */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.gamification-page .conversion-info::before {
+  content: '💰';
+  position: absolute;
+  top: var(--spacing-sm); /* Uses spacing variable */
+  right: var(--spacing-sm); /* Uses spacing variable */
+  font-size: 2rem;
+  opacity: 0.3;
+}
+
+.gamification-page .conversion-info h3 {
+  color: var(--primary-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.gamification-page .rupee-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--success); /* Solid success color */
+  margin: var(--spacing-xs) 0; /* Uses spacing variable */
+}
+
+.gamification-page .conversion-rate {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  font-style: italic;
+}
+
+.gamification-page .button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm); /* Uses spacing variable */
+  justify-content: center;
+  margin-top: var(--spacing-lg); /* Uses spacing variable */
+}
+
+/* --- MODIFIED: General button styles applied to specific classes --- */
+.gamification-page .btn-primary,
+.gamification-page .btn-secondary,
+.gamification-page .btn-success {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  border: none; /* Base border removed here, individual buttons can add */
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.gamification-page .btn-primary {
+  background-color: var(--primary); /* Solid color for primary buttons */
+  color: var(--white);
+}
+
+.gamification-page .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.gamification-page .btn-secondary {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  border: 2px solid var(--gray-300); /* Specific border for secondary */
+}
+
+.gamification-page .btn-secondary:hover {
+  background: var(--gray-200);
+  transform: translateY(-2px);
+}
+
+.gamification-page .btn-success {
+  background-color: var(--success); /* Solid color for success buttons */
+  color: var(--white);
+  /* Removed shimmer animation as it's typically tied to gradients */
+}
+
+.gamification-page .btn-success:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Removed @keyframes shimmer as it's no longer needed */
+/* Removed the specific background rule for .btn-success that had linear-gradient and background-size */
+
+
+/* --- MODIFIED: Add ripple effect to specific button classes --- */
+.gamification-page .btn-primary::before,
+.gamification-page .btn-secondary::before,
+.gamification-page .btn-success::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3); /* White ripple for dark backgrounds */
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Ensure ripple is above button content but below text/icon */
+}
+
+/* Note: For .btn-secondary, you might want a darker ripple, e.g., rgba(0, 0, 0, 0.1) */
+
+.gamification-page .btn-primary:active::before,
+.gamification-page .btn-secondary:active::before,
+.gamification-page .btn-success:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.gamification-page .achievement-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs); /* Uses spacing variable */
+  background-color: var(--gold); /* Solid color for achievement badge */
+  color: var(--white);
+  padding: var(--spacing-xs) var(--spacing-sm); /* Uses spacing variables */
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: var(--spacing-xs) auto; /* Uses spacing variable */
+  box-shadow: var(--shadow-md);
+}
+
+.gamification-page .no-data {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-lg); /* Uses spacing variables */
+  color: var(--gray-600);
+}
+
+.gamification-page .no-data::before {
+  content: '📊';
+  font-size: 4rem;
+  display: block;
+  margin-bottom: var(--spacing-sm); /* Uses spacing variable */
+  opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gamification-page body {
+    padding: var(--spacing-sm); /* Uses spacing variable */
+  }
+
+  .gamification-page .score-board {
+    padding: var(--spacing-md); /* Uses spacing variable */
+  }
+
+  .gamification-page .score {
+    font-size: 2rem;
+  }
+
+  .gamification-page .feedback {
+    font-size: 1.1rem;
+    padding: var(--spacing-sm); /* Uses spacing variable */
+  }
+
+  .gamification-page .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* MODIFIED: Ensure responsiveness is specific to your content buttons */
+  .gamification-page .btn-primary,
+  .gamification-page .btn-secondary,
+  .gamification-page .btn-success {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .gamification-page .rupee-amount {
+    font-size: 1.5rem;
+  }
+}
+
+/* Loading animation */
+.gamification-page .loading {
+  text-align: center;
+  padding: var(--spacing-lg); /* Uses spacing variable */
+  color: var(--primary);
+}
+
+.gamification-page .loading::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--cyan-200); /* Uses consistent cyan color */
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+  margin-left: var(--spacing-sm); /* Uses spacing variable */
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.gamification-page .score-board {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Main content wrapper for consistent layout */
+.gamification-page .main-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-sm); /* Consistent with detection.css */
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  min-height: calc(100vh - 120px); /* Adjust based on your header/footer height */
+}
+
+/* --- ADDED RULES FOR SEARCH OVERLAY (as per previous discussion) --- */
+/* This assumes search-wrapper is a direct child of the <body> */
+.gamification-page .search-wrapper {
+    position: fixed; /* Use fixed positioning so it's relative to the viewport and doesn't push content */
+    top: 70px; /* IMPORTANT: Adjust this value to be exactly the height of your navbar, plus any small gap if desired. */
+    left: 0;
+    width: 100%;
+    background-color: var(--white); /* Use a consistent background from your variables */
+    box-shadow: var(--shadow-md); /* Use your defined shadow */
+    z-index: 990; /* Place it below the navbar (assuming navbar has z-index > 990) */
+    overflow: hidden; /* Crucial for max-height transition */
+    max-height: 0; /* Hidden state for the slide animation */
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out; /* Smooth transition */
+    border-bottom-left-radius: 10px; /* Consistent styling */
+    border-bottom-right-radius: 10px; /* Consistent styling */
+    padding: 0 var(--spacing-md); /* Initial padding when closed */
+}
+
+/* Class that JavaScript will add when the search is toggled open */
+.gamification-page .search-wrapper.is-active-search {
+    max-height: 100px; /* Adjust this value based on the actual height needed for your search form when open */
+    padding: var(--spacing-md) var(--spacing-md); /* Apply padding when open */
+    box-shadow: var(--shadow-lg); /* A slightly stronger shadow when open, optional */
+}
+
+/* Styles for the form inside the search wrapper (consistent with your theme) */
+.gamification-page .feature-search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap; /* Ensure responsiveness for smaller screens */
+    min-height: 50px; /* Ensure some height even if padding is 0 */
+}
+
+.gamification-page .feature-search-form select,
+.gamification-page .feature-search-form button {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 8px;
+    border: 1px solid var(--gray-300);
+    font-size: 1rem;
+    color: var(--gray-800);
+    background-color: var(--white);
+}
+
+.gamification-page .feature-search-form button { /* This is the "Go" button for search */
+    background-color: var(--primary);
+    color: var(--white);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.gamification-page .feature-search-form button:hover {
+    background-color: var(--primary-dark);
+}
