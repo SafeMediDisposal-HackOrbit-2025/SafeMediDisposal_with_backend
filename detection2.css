@@ -1,0 +1,766 @@
+/* ROOT VARIABLES */
+:root {
+  --primary: #3a9fa5; /* Muted cyan, similar to #35c4cf but slightly deeper */
+  --primary-dark: #2e3a59; /* Dark blue, used in navstyles for buttons/icons */
+  --primary-light: #6bbcc2; /* Lighter shade of primary */
+  --secondary: #2e3a59; /* Keeping secondary as the dark blue for consistency */
+  --accent: #3a9fa5; /* Same as primary */
+
+  --cyan-50: #e0f7f8; /* Very light cyan for body background */
+  --cyan-100: #b3ecf0; /* Slightly darker light cyan for body-section background */
+  --cyan-200: #86e0e7; /* A bit more pronounced cyan for borders/accents */
+  --cyan-500: #3a9fa5;
+  --cyan-600: #328b90;
+  --cyan-700: #2a777b;
+  --cyan-800: #226466;
+  --cyan-900: #194a4c;
+
+  --white: #ffffff; /* Clean white for media cards and results */
+  --gray-50: #f9fafb; /* Very light gray for image backgrounds */
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Shadows remain consistent for a lifted, modern look */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Spacing variables for consistency */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+}
+
+/* SCOPED STYLES - Only apply to detection page elements to avoid navbar conflicts */
+/* IMPORTANT: Add class="detection-page" to your <body> tag in detection.html */
+.detection-page body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--white);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Main Content Wrapper - Reduced max-width for smaller box */
+/* Scoped to .detection-page */
+.detection-page .main-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-sm);
+  width: 100%;
+  max-width: 1000px; /* Reduced from 1600px */
+  margin: 0 auto;
+  min-height: calc(100vh - 120px); /* Account for header/footer */
+}
+
+/* Text Section - Removed spacing before H1 */
+/* Scoped to .detection-page */
+.detection-page .main-content-wrapper .text {
+  width: 100%;
+  max-width: 600px; /* Reduced from 800px */
+  text-align: center;
+  margin: 0 0 var(--spacing-lg) 0; /* Changed top margin to 0 */
+  padding: 0 var(--spacing-sm);
+}
+
+/* H1 - Single line display with proper content coverage */
+/* Scoped to .detection-page */
+.detection-page .main-content-wrapper h1 {
+  font-family: 'Fraunces', serif;
+  color: var(--primary-dark);
+  font-size: clamp(1.8rem, 4vw, 2.8rem); /* Reduced max size for single line */
+  font-weight: 700;
+  margin: 0;
+  padding: 0 0 var(--spacing-md); /* Changed top padding to 0 */
+  position: relative;
+  line-height: 1.1; /* Tighter line height */
+  white-space: nowrap; /* Force single line */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Handle overflow gracefully */
+}
+
+/* Scoped to .detection-page */
+.detection-page .main-content-wrapper h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(160px, 80%);
+  height: 4px;
+  background-color: var(--primary);
+  border-radius: 2px;
+}
+
+/* MAIN BODY SECTION - Reduced max-width for smaller container */
+/* Scoped to .detection-page */
+.detection-page .body-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--cyan-50);
+  color: var(--gray-800);
+  padding: var(--spacing-lg); /* Reduced padding */
+  gap: var(--spacing-lg); /* Reduced gap */
+  box-shadow: var(--shadow-lg);
+  border-radius: 15px;
+  margin-bottom: var(--spacing-lg);
+  width: 100%;
+  max-width: 900px; /* Reduced from 1200px */
+  border: 1px solid var(--cyan-200);
+  position: relative;
+}
+
+/* CONTROL BUTTONS - Equal sizing and better layout */
+/* Scoped to .detection-page */
+.detection-page .controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  align-items: stretch;
+  margin-bottom: var(--spacing-md);
+}
+
+/* This rule applies the button styling to both the label and the buttons */
+.detection-page .controls label,
+.detection-page .controls button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: none;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  flex: 1;
+  min-width: 160px;
+  max-width: 250px;
+  min-height: 45px;
+  height: auto;
+  text-align: center;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* This rule specifically hides the file input element */
+.detection-page .controls input[type="file"] {
+  display: none;
+}
+/* Scoped to .detection-page */
+.detection-page .controls button:hover,
+.detection-page .controls input[type="file"]:hover {
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* MEDIA ELEMENTS - Reduced size */
+/* Scoped to .detection-page */
+.detection-page .media-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reduced from 320px */
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 800px; /* Reduced from 1000px */
+  margin-bottom: var(--spacing-lg);
+  justify-content: center;
+}
+
+/* Scoped to .detection-page */
+.detection-page .media-card {
+  background: var(--white);
+  border-radius: 15px; /* Reduced from 20px */
+  padding: var(--spacing-md); /* Reduced padding */
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--cyan-100);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 250px; /* Reduced from 300px */
+  transition: all 0.3s ease;
+}
+
+/* Scoped to .detection-page */
+.detection-page .media-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--primary-dark);
+}
+
+/* Scoped to .detection-page */
+.detection-page .media-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+/* Scoped to .detection-page */
+.detection-page .media-card h3 {
+  color: var(--primary-dark);
+  font-size: 1.1rem; /* Slightly reduced */
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm); /* Reduced margin */
+  text-align: center;
+}
+
+/* Scoped to .detection-page */
+.detection-page #preview,
+.detection-page #video {
+  width: 100%;
+  max-width: 320px; /* Reduced from 400px */
+  height: auto;
+  max-height: 250px; /* Reduced from 300px */
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  border-radius: 12px; /* Reduced from 16px */
+  box-shadow: var(--shadow-sm);
+  border: 3px solid var(--cyan-200);
+  background: var(--gray-50);
+  transition: all 0.3s ease;
+}
+
+/* Scoped to .detection-page */
+.detection-page #preview:hover,
+.detection-page #video:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+
+/* Scoped to .detection-page */
+.detection-page #video {
+  display: none;
+}
+
+/* RESULTS SECTION - Reduced size */
+/* Scoped to .detection-page */
+.detection-page #results {
+  background: var(--white);
+  border-radius: 20px; /* Reduced from 24px */
+  box-shadow: var(--shadow-xl);
+  text-align: left;
+  width: 100%;
+  max-width: 800px; /* Reduced from 1000px */
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid var(--cyan-100);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scoped to .detection-page */
+.detection-page #results::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-color: var(--primary-dark);
+}
+
+/* Scoped to .detection-page */
+.detection-page #results h3 {
+  color: var(--primary-dark);
+  font-size: 1.4rem; /* Slightly reduced */
+  font-weight: 600;
+  margin-bottom: var(--spacing-md); /* Reduced margin */
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* Scoped to .detection-page */
+.detection-page #results h3::before {
+  content: '🔍';
+  font-size: 1.2rem;
+}
+
+/* Gamification button - Better spacing and positioning */
+/* Scoped to .detection-page */
+.detection-page .gamification-button-wrapper {
+  text-align: center;
+  margin-top: var(--spacing-lg); /* Reduced margin */
+  padding-top: var(--spacing-md); /* Reduced padding */
+  border-top: 1px dashed var(--cyan-200);
+  width: 100%;
+}
+
+/* Specific styling for gamification button link */
+/* Scoped to .detection-page */
+.detection-page .gamification-button-wrapper a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Updated gamification button properties */
+/* Scoped specifically for the button within the gamification wrapper */
+.detection-page .gamification-button-wrapper button {
+  width: auto; /* Allow width to be determined by content and flex */
+  min-width: 200px; /* Minimum width for longer text */
+  padding: var(--spacing-sm) var(--spacing-xl); /* More padding for content */
+  font-size: 1rem; /* Slightly larger font for readability */
+  white-space: normal; /* Allow text wrapping */
+  height: auto; /* Allow height to adjust based on content */
+  min-height: 50px; /* Ensure minimum height */
+  display: inline-flex; /* For centering content */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  /* Re-add button base styles to ensure consistency */
+  border: none;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+/* Scoped to .detection-page */
+.detection-page .gamification-button-wrapper button:hover {
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* DETECTION ITEMS - Improved spacing */
+/* Scoped to .detection-page */
+.detection-page .detection {
+  border-bottom: 1px solid var(--cyan-200);
+  padding: var(--spacing-md) 0; /* Reduced padding */
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Scoped to .detection-page */
+.detection-page .detection:last-child {
+  border-bottom: none;
+}
+
+/* Scoped to .detection-page */
+.detection-page .detection:hover {
+  background: var(--cyan-50);
+  margin: 0 calc(-1 * var(--spacing-sm));
+  padding: var(--spacing-md) var(--spacing-sm);
+  border-radius: 12px;
+}
+
+/* Scoped to .detection-page */
+.detection-page .detection strong {
+  color: var(--primary-dark);
+  font-size: 1.1rem; /* Slightly reduced */
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Scoped to .detection-page */
+.detection-page .detection-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Reduced from 250px */
+  gap: var(--spacing-sm); /* Reduced gap */
+  margin-top: var(--spacing-sm); /* Reduced margin */
+}
+
+/* Scoped to .detection-page */
+.detection-page .info-item {
+  background: var(--cyan-50);
+  padding: var(--spacing-sm);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+  font-size: 0.85rem; /* Slightly reduced */
+  color: var(--gray-700);
+}
+
+/* Scoped to .detection-page */
+.detection-page .info-item strong {
+  color: var(--primary);
+  font-size: 0.85rem;
+  margin-bottom: 0;
+  display: block;
+}
+
+/* Scoped to .detection-page */
+.detection-page .confidence {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 0.2rem 0.6rem; /* Reduced padding */
+  border-radius: 15px; /* Reduced border radius */
+  font-size: 0.8rem; /* Reduced font size */
+  font-weight: 500;
+  margin-left: var(--spacing-sm);
+}
+
+/* LOADING, EMPTY, ERROR STATES - Better spacing */
+/* Scoped to .detection-page */
+.detection-page .loading {
+  text-align: center;
+  padding: var(--spacing-lg); /* Reduced padding */
+  color: var(--primary-dark);
+  font-size: 1rem; /* Slightly reduced */
+}
+
+/* Scoped to .detection-page */
+.detection-page .loading::after {
+  content: '';
+  display: inline-block;
+  width: 20px; /* Reduced size */
+  height: 20px;
+  border: 3px solid var(--cyan-200);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+  margin-left: var(--spacing-sm);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Scoped to .detection-page */
+.detection-page .empty-state {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-sm); /* Reduced padding */
+  color: var(--gray-600);
+  font-size: 1rem; /* Slightly reduced */
+}
+
+/* Scoped to .detection-page */
+.detection-page .empty-state::before {
+  content: '🔍';
+  font-size: 2.5rem; /* Reduced size */
+  display: block;
+  margin-bottom: var(--spacing-sm); /* Reduced margin */
+  color: var(--primary);
+}
+
+/* Scoped to .detection-page */
+.detection-page .error {
+  color: #ef4444;
+  text-align: center;
+  padding: var(--spacing-md); /* Reduced padding */
+  background: #fef2f2;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
+  margin: var(--spacing-sm) 0;
+}
+
+/* Scoped to .detection-page */
+.detection-page .success {
+  background: var(--cyan-50);
+  border: 1px solid var(--cyan-200);
+  border-radius: 12px;
+  padding: var(--spacing-sm); /* Reduced padding */
+  margin-bottom: var(--spacing-sm); /* Reduced margin */
+}
+
+/* Scoped to .detection-page */
+.detection-page .success::before {
+  content: '✅ ';
+  color: var(--primary);
+}
+
+/* Scoped to .detection-page */
+.detection-page canvas {
+  display: none;
+}
+
+/* RESPONSIVE DESIGN - Improved breakpoints and spacing */
+
+/* Large tablets and small desktops */
+@media (max-width: 1200px) {
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper {
+    max-width: 100%;
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .body-section {
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  /* Scoped to .detection-page */
+  .detection-page .body-section {
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+    margin: 0 var(--spacing-sm);
+    max-width: 100%;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .media-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    max-width: 400px;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper .text {
+    margin: 0 0 var(--spacing-md) 0; /* Further reduced spacing */
+    max-width: 100%;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper h1 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    white-space: nowrap; /* Maintain single line on tablets */
+  }
+
+  /* Adjust control buttons for tablets */
+  /* Scoped to .detection-page */
+  .detection-page .controls input[type="file"],
+  .detection-page .controls button {
+    flex-basis: auto; /* Allow flex-basis to be auto for better wrapping */
+    max-width: 200px; /* Cap max width slightly */
+    padding: var(--spacing-sm);
+    min-height: 45px;
+  }
+}
+
+/* Small tablets and large phones */
+@media (max-width: 768px) {
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper {
+    padding: var(--spacing-sm);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .body-section {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+    margin: 0;
+    border-radius: 10px;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .controls {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: stretch; /* Stretch to full width of parent */
+    gap: var(--spacing-sm);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .controls input[type="file"],
+  .detection-page .controls button {
+    width: 100%; /* Full width on mobile */
+    max-width: 300px; /* Maximum width for stacked buttons */
+    margin: 0 auto; /* Center them */
+    padding: var(--spacing-sm);
+    min-height: 40px; /* Ensure content fits */
+    flex: none; /* Remove flex grow on vertical stack for better control */
+  }
+
+  /* Specific rule for the gamification button */
+  /* Scoped to .detection-page */
+  .detection-page .gamification-button-wrapper button {
+    width: 100%;
+    max-width: 320px; /* Slightly wider for gamification button */
+    min-height: 45px;
+    margin: 0 auto;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .media-card {
+    padding: var(--spacing-sm);
+    min-height: 200px;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page #results {
+    padding: var(--spacing-md);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .detection-info {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .confidence {
+    margin-left: 0;
+    margin-top: var(--spacing-xs);
+    display: block;
+    width: fit-content;
+  }
+}
+
+/* Large phones */
+@media (max-width: 600px) {
+  /* Scoped to .detection-page */
+  .detection-page .body-section {
+    padding: var(--spacing-xs);
+    gap: var(--spacing-xs);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper .text {
+    margin: 0 0 var(--spacing-sm) 0; /* Minimal top spacing */
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper h1 {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+    padding: 0 0 var(--spacing-sm); /* Minimal padding */
+    white-space: normal; /* Allow wrapping on small screens if needed */
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper h1::after {
+    width: min(120px, 70%);
+    height: 3px;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .media-card {
+    padding: var(--spacing-xs);
+    min-height: 180px;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page #results {
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .empty-state {
+    padding: var(--spacing-md) var(--spacing-xs);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .empty-state::before {
+    font-size: 2rem;
+  }
+
+  /* Adjust button padding and font for very small screens */
+  /* Scoped to .detection-page */
+  .detection-page .controls input[type="file"],
+  .detection-page .controls button {
+    padding: var(--spacing-xs);
+    font-size: 0.85rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  /* Scoped to .detection-page */
+  .detection-page :root {
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper {
+    padding: var(--spacing-xs);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .body-section {
+    padding: var(--spacing-xs);
+    border-radius: 8px;
+    padding-left: (var(--spacing-xs));
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper h1 {
+    font-size: clamp(1.4rem, 7vw, 1.8rem);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .detection {
+    padding: var(--spacing-xs) 0;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .detection:hover {
+    margin: 0;
+    padding: var(--spacing-xs);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page #results {
+    padding: var(--spacing-xs);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .controls {
+    gap: var(--spacing-xs);
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .controls input[type="file"],
+  .detection-page .controls button {
+    padding: var(--spacing-xs);
+    font-size: 0.8rem;
+    min-height: 35px; /* Smaller min-height for small phones */
+    max-width: 250px; /* Slightly smaller max-width */
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .gamification-button-wrapper button {
+    max-width: 260px; /* Adjusted for consistency */
+    min-height: 38px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+  /* Scoped to .detection-page */
+  .detection-page .main-content-wrapper h1 {
+    font-size: 1.4rem;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .media-card {
+    min-height: 160px;
+  }
+
+  /* Scoped to .detection-page */
+  .detection-page .empty-state::before {
+    font-size: 1.8rem;
+  }
+}
