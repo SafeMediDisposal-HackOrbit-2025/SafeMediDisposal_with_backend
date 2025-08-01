@@ -1,0 +1,221 @@
+.campaigns-section {
+  padding: 50px 40px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.explore-campaigns {
+  display: flex;
+  flex-wrap: wrap;
+  background: #e0f6f6;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-left: 80px;
+  margin-right: 80px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.explore-campaigns img {
+  width: 100%;
+  max-width: 500px;
+  object-fit: cover;
+}
+
+.explore-text {
+  padding: 40px;
+  flex: 1;
+  min-width: 250px;
+}
+
+.explore-text h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.explore-text p {
+  margin: 20px 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.explore-text button {
+  padding: 10px 20px;
+  background-color: #4ac6cb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ongoing-heading {
+  margin-top: 80px;
+  font-size: 24px;
+  font-weight: 900;
+  border-bottom: 2px solid #2E3A59;
+  display: block; /* change from inline-block */
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  font-family: 'Fraunces', serif;
+  color: #2E3A59;
+  text-align: center;
+}
+
+#services .card {
+    color: #000;
+    margin-bottom: 30px;
+    background-color: #CADBDB;
+    height: 520px;
+    width: 341px;
+    border-radius: 57px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    margin-bottom: 90px;
+}
+
+.img-container {
+    overflow: hidden;
+    height: 264px;
+    width: 341px; 
+}
+
+#services .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+#services .card-img-top {
+    width: 100%;
+    height: 264px;
+    object-fit: cover;
+    transition: transform 1s;
+    border-top-left-radius: 57px;
+    border-top-right-radius: 57px;
+}
+
+#services .card:hover .card-img-top {
+    transform: scale(1.2);
+}
+
+.custom-btn {
+  padding: 10px 20px;
+  background-color: #4ac6cb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #3aaeb2;
+}
+
+/* Tablets and smaller */
+@media (max-width: 992px) {
+  .explore-campaigns {
+    flex-direction: column;
+    margin: 30px 20px;
+  }
+
+  .explore-campaigns img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .explore-text {
+    padding: 30px 20px;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 600px) {
+  .campaigns-section {
+    padding: 30px 20px;
+  }
+
+  .ongoing-heading {
+    font-size: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+
+  .explore-text h3 {
+    font-size: 18px;
+  }
+
+  .explore-text p {
+    font-size: 14px;
+  }
+
+  .explore-text button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  #services .card {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+  }
+
+  .img-container,
+  #services .card-img-top {
+    height: 200px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+
+  .explore-text {
+    text-align: center;
+  }
+
+  .explore-campaigns {
+    margin: 20px 10px;
+  }
+
+  .explore-text button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .explore-text h3 {
+    font-size: 16px;
+  }
+
+  .explore-text p {
+    font-size: 13px;
+  }
+
+  .explore-text button {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .campaigns-section {
+    padding: 20px 10px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-text {
+    font-size: 14px;
+  }
+
+  .custom-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+}
+
+  .explore-text button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }

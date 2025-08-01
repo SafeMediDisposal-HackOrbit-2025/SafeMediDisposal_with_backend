@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/whitelogo-Photoroom.jpg" alt="HealthWaste Logo" class="logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+                    <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                    <li><a href="qrcodescanner.html"><i class="fa-solid fa-qrcode"></i></i> QR Code</a></li>
+                    <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
+                    <li><a href="gamification.html"><i class="fa-solid fa-trophy"></i> Results</a></li>
+                    <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+                    <li><a href="contactus.html"><i class="fa-solid fa-message"></i> Message</a></li>
+                    <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="campaign.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search here...">
+                </div>
+                <div class="user-profile">
+                    <i class="fa-regular fa-bell"></i>
+                    <i class="fa-solid fa-user-circle user-icon"></i> 
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <div class="card summary-section">
+                    <h3 class="card-title">Today's Waste Summary</h3>
+                    <p class="summary-subtitle">Waste Summary</p> 
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="icon-wrapper" style="--icon-color: #F39C12; --icon-bg-solid: #22252A;"><i class="fa-solid fa-chart-bar"></i></div>
+                            <div class="card-content">
+                                <h4>88kg</h4>
+                                <p>Waste Deposit</p>
+                                <p class="positive">+10% from yesterday</p>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="icon-wrapper" style="--icon-color: #3498DB; --icon-bg-solid: #22252A;"><i class="fa-solid fa-file-invoice"></i></div>
+                            <div class="card-content">
+                                <h4>25</h4>
+                                <p>Pickup Request</p>
+                                <p class="positive">+8% from yesterday</p> 
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="icon-wrapper" style="--icon-color: #E74C3C; --icon-bg-solid: #22252A;"><i class="fa-solid fa-briefcase"></i></div>
+                            <div class="card-content">
+                                <h4>4</h4>
+                                <p>Bins Cleared</p>
+                                <p class="positive">+2% from yesterday</p> 
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="icon-wrapper" style="--icon-color: #27AE60; --icon-bg-solid: #22252A;"><i class="fa-solid fa-user-group"></i></div>
+                            <div class="card-content">
+                                <h4>3</h4>
+                                <p>Hospital Register</p>
+                                <p class="positive">+3% from yesterday</p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card pickup-updates">
+                    <h3 class="card-title">Pickup Updates</h3>
+                    <div class="stepper">
+                        <div class="step completed">
+                            <div class="step-content">Pickup Scheduled</div>
+                        </div>
+                        <div class="step active">
+                            <div class="step-content">In Transit</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-content">Waste Disposal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card top-categories">
+    <h3 class="card-title">Top Waste Categories</h3>
+    <div class="category-list">
+        <div class="category-item">
+            <span class="num">01</span>
+            <span class="name">Sharps (needles, blades)</span>
+            <div class="popularity">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 46%; background-color: #F39C12;">
+                        <span class="progress-label">46%</span>
+                    </div>
+                </div>
+            </div>
+            <span class="volume">34kg</span>
+        </div>
+        
+        <div class="category-item">
+            <span class="num">02</span>
+            <span class="name">Infectious Waste</span>
+            <div class="popularity">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 17%; background-color: #3498DB;">
+                        <span class="progress-label">17%</span>
+                    </div>
+                </div>
+            </div>
+            <span class="volume">25kg</span>
+        </div>
+        
+        <div class="category-item">
+            <span class="num">03</span>
+            <span class="name">Hazardous Waste</span>
+            <div class="popularity">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 19%; background-color: #E74C3C;">
+                        <span class="progress-label">19%</span>
+                    </div>
+                </div>
+            </div>
+            <span class="volume">20kg</span>
+        </div>
+        
+        <div class="category-item">
+            <span class="num">04</span>
+            <span class="name">Pharmaceutical Waste</span>
+            <div class="popularity">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 23%; background-color: #27AE60;">
+                        <span class="progress-label">23%</span>
+                    </div>
+                </div>
+            </div>
+            <span class="volume">09kg</span>
+        </div>
+    </div>
+</div>
+
+                <div class="card pickup-fulfillment">
+                    <div class="card-header">
+                        <h3 class="card-title">Pickup Fulfillment</h3>
+                        <div class="legend">
+                            <div><span class="dot" style="--dot-color: #DFE3E8;"></span>Last Month</div>
+                            <div><span class="dot" style="--dot-color: #028090;"></span>This Month</div>
+                        </div>
+                    </div>
+                    <div class="fulfillment-total">
+                        <br>
+                        <h4>₹5,506</h4>
+                    </div>
+                    <div id="fulfillment-chart"></div>
+                </div>
+
+                <div class="card performance-rewards">
+                    <h3 class="card-title">Performance and Rewards</h3>
+                    <div class="performance-content">
+                        <div class="stats">
+                            <p class="label">Total Waste Managed</p>
+                            <h4>6078.76kg</h4>
+                            <p class="growth">Reward growth: Up by 48% from last month</p>
+                        </div>
+                        <div id="performance-chart"></div>
+                    </div>
+                </div>
+
+                <div class="card hospital-engagement">
+                    <h3 class="card-title">Hospital Engagement Insights</h3>
+                    <div id="engagement-chart"></div>
+                </div>
+
+                <div class="card waste-distribution-chart">
+                    <h3 class="card-title">Waste Distribution by Type</h3>
+                    <div id="distribution-chart"></div>
+                </div>
+                
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+/* Universal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+}
+
+/* Left Section - Fixed on Desktop */
+.left-section {
+    flex: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    z-index: 0;
+}
+
+.left-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+}
+
+.logo-img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* Right Section - Main Content */
+.right-section {
+    width: 50%;
+    margin-left: 50%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.right-section h2 {
+    font-size: 60px;
+    margin-bottom: 30px;
+    margin-top: 25px;
+    color: #2E3A59;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+}
+
+.form-box {
+    background-color: #f4fbfb;
+    padding: 40px 50px;
+    border-radius: 30px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 601px;
+}
+
+.form label {
+    display: block;
+    padding: 25px 0 5px 0;
+    margin-top: 15px;
+    font-size: 20px;
+    color: #333;
+    font-weight: 800;
+}
+
+.form input {
+    width: 100%;
+    padding: 25px;
+    margin-top: 5px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background-color: #e2f0f1;
+    font-size: 14px;
+}
+
+.form button {
+    display: block;
+    margin: 50px auto;
+    width: 40%;
+    padding: 15px;
+    background-color: #3cbec9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form button:hover {
+    background-color: #2aa7b1;
+}
+
+.form p {
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.form a {
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Styles for the message element */
+#login-message {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+.error {
+  color: #721c24; /* Red */
+  background-color: #f8d7da;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-section {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+    }
+
+    .logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+
+    .right-section {
+        width: 100%;
+        margin-left: 0;
+        padding: 30px 20px;
+        max-height: none;
+    }
+
+    .right-section h2 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    .form-box {
+        padding: 30px;
+    }
+
+    .form label {
+        font-size: 18px;
+    }
+
+    .form input {
+        padding: 20px;
+    }
+
+    .form button {
+        width: 50%;
+        margin: 30px auto;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .form p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .left-section {
+        height: 200px;
+    }
+
+    .logo-img {
+        width: 60px;
+    }
+
+    .right-section {
+        padding: 20px 15px;
+    }
+
+    .right-section h2 {
+        font-size: 38px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .form-box {
+        padding: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form label {
+        font-size: 16px;
+        padding: 15px 0 5px 0;
+    }
+
+    .form input {
+        padding: 15px;
+    }
+
+    .form button {
+        width: 60%;
+        margin: 25px auto;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .form p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .left-section {
+        height: 150px;
+    }
+
+    .logo-img {
+        width: 50px;
+    }
+
+    .right-section h2 {
+        font-size: 30px;
+    }
+
+    .form-box {
+        padding: 15px;
+    }
+
+    .form label {
+        font-size: 14px;
+        padding: 10px 0 5px 0;
+    }
+
+    .form input {
+        padding: 12px;
+    }
+
+    .form button {
+        width: 75%;
+        margin: 20px auto;
+        font-size: 13px;
+    }
+
+    .form p {
+        font-size: 14px;
+    }
+}

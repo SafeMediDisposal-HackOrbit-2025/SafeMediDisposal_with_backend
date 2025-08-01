@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Waste Detection Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #50c2c9;
+      --primary-dark: #028090;
+      --secondary-color: #DFE3E8;
+      --secondary-color-1: #CADBDB;
+      --text-color: #2C3E50;
+      --text-light: #808B96;
+      --white: #FFFFFF;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 2rem 1.5rem;
+    }
+
+    .sidebar-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .sidebar-header .logo {
+      max-width: 120px;
+      border-radius: 50%;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+    }
+
+    .sidebar-nav ul li {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-nav ul li a {
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s;
+    }
+
+    .sidebar-nav ul li a:hover,
+    .sidebar-nav ul li a.active {
+      color: var(--primary-dark);
+      background-color: var(--white);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      padding: 2rem;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .user-icon {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+    }
+
+    .results-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .results-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .score-card, .conversion-card {
+      text-align: center;
+    }
+
+    .achievement-badge {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      color: #50c2c9;
+    }
+
+    .score-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .score-label {
+      font-size: 1.1rem;
+      color: var(--text-light);
+    }
+
+    .conversion-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .rupee-amount {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--primary-dark);
+      margin: 0.5rem 0;
+    }
+
+    .conversion-rate {
+      color: var(--text-light);
+    }
+
+    .breakdown-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--secondary-color-1);
+      padding: 0.7rem 0;
+    }
+
+    .breakdown-item-name {
+      font-weight: 500;
+    }
+
+    .breakdown-item-points {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .feedback-card {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      text-align: center;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .no-data-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      padding: 0.7rem 1.5rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+
+    .btn-success {
+      background-color: #50c2c9;
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary-color-1);
+      color: var(--text-color);
+    }
+
+    .loading {
+      text-align: center;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      margin-top: 3rem;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .results-grid {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/whitelogo-Photoroom.jpg" alt="Company Logo" class="logo">
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+          <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+          <li><a href="qrcodescanner.html"><i class="fa-solid fa-qrcode"></i> QR Code</a></li>
+          <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
+          <li><a href="#" class="active"><i class="fa-solid fa-trophy"></i> Results</a></li>
+          <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+          <li><a href="contactus.html"><i class="fa-solid fa-message"></i> Message</a></li>
+          <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+          <li><a href="campaign.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1 class="page-title"><i class="fa-solid fa-trophy"></i> Waste Detection Results</h1>
+        <div class="user-profile">
+          <i class="fa-regular fa-bell"></i>
+          <i class="fa-solid fa-user-circle user-icon"></i>
+        </div>
+      </header>
+      <div id="resultsContainer">
+        <div class="loading">Calculating your rewards...</div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('authToken');
+    if (!token) window.location.href = 'login.html';
+
+    const resultsContainer = document.getElementById("resultsContainer");
+    const pointsMap = {
+      glove: 10,
+      syringe: 15,
+      mask: 8,
+      needle: 20,
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const sessionData = sessionStorage.getItem("wasteCounts");
+      const sessionCounts = sessionData ? JSON.parse(sessionData) : {};
+      sessionStorage.removeItem("wasteCounts");
+
+      try {
+        const response = await fetch('/api/detections/history', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) throw new Error('Could not fetch history');
+        const history = await response.json();
+
+        let sessionPoints = 0;
+        let sessionBreakdownHTML = "";
+        for (let item in sessionCounts) {
+          const count = sessionCounts[item];
+          const points = (pointsMap[item] || 5) * count;
+          sessionPoints += points;
+          sessionBreakdownHTML += `
+            <li class="breakdown-item">
+              <div>
+                <span class="breakdown-item-name">${item}:</span>
+                <span style="color: var(--text-light);">${count} items × ${pointsMap[item] || 5} pts</span>
+              </div>
+              <span class="breakdown-item-points">${points} points</span>
+            </li>
+          `;
+        }
+
+        let lifetimePoints = 0;
+        history.forEach(detection => {
+          for (let item in detection.items) {
+            const count = detection.items[item];
+            lifetimePoints += (pointsMap[item] || 5) * count;
+          }
+        });
+
+        if (Object.keys(sessionCounts).length === 0 && history.length === 0) {
+          displayNoData();
+          return;
+        }
+
+        renderResults(sessionPoints, lifetimePoints, sessionBreakdownHTML);
+      } catch (error) {
+        console.error("Error:", error);
+        displayNoData("Error loading results.");
+      }
+    });
+
+    function renderResults(sessionPoints, totalPoints, breakdownHTML) {
+      const rupeeAmount = Math.floor(totalPoints / 10);
+      let feedback = "Good start!";
+      let achievement = "Beginner Badge";
+      let achievementIcon = "🥉";
+
+      if (totalPoints >= 200) {
+        feedback = "Outstanding! You're a medical waste detection champion!";
+        achievement = "Champion Badge";
+        achievementIcon = "🏆";
+      } else if (totalPoints >= 100) {
+        feedback = "Excellent work! You're making hospitals safer.";
+        achievement = "Expert Badge";
+        achievementIcon = "🥇";
+      } else if (totalPoints >= 50) {
+        feedback = "Great job! You're contributing to healthcare safety.";
+        achievement = "Contributor Badge";
+        achievementIcon = "🥈";
+      }
+
+      resultsContainer.innerHTML = `
+        <div class="results-content">
+          <div class="results-grid">
+            <div class="card">
+              <div class="score-card">
+                <div class="achievement-badge">${achievementIcon} ${achievement}</div>
+                <div class="score-number">${sessionPoints}</div>
+                <div class="score-label">Session Points Earned</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="conversion-card">
+                <h3 class="conversion-title">💰 Total Rewards Balance</h3>
+                <div class="rupee-amount">₹${rupeeAmount}</div>
+                <div class="conversion-rate">Total Lifetime Points: <strong>${totalPoints}</strong></div>
+              </div>
+            </div>
+          </div>
+          ${breakdownHTML ? `
+            <div class="card">
+              <h3 class="card-title"><i class="fa-solid fa-chart-bar"></i> This Session's Breakdown</h3>
+              <ul class="breakdown-list">${breakdownHTML}</ul>
+            </div>
+          ` : ''}
+          <div class="card">
+            <div class="feedback-card"><i class="fa-solid fa-star" style="color: var(--warning-color);"></i> ${feedback}</div>
+          </div>
+          <div class="button-container">
+            <a href="detection.html" class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i> Detect More Items</a>
+            <a href="redemption.html" class="btn btn-success"><i class="fa-solid fa-coins"></i> Redeem Points (${totalPoints} pts)</a>
+          </div>
+        </div>`;
+    }
+
+    function displayNoData(message = "No Detection Data Found") {
+      resultsContainer.innerHTML = `
+        <div class="card">
+          <div class="no-data">
+            <div class="no-data-icon">📊</div>
+            <h3>${message}</h3>
+            <p>Please detect waste items first to see your score and rewards.</p>
+            <div class="button-container" style="margin-top: 2rem;">
+              <a href="detection.html" class="btn btn-primary"><i class="fa-solid fa-camera"></i> Start Detection</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
+  

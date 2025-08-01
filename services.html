@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Stylesheets -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <title>SafeMediDisposal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="services.css"/>
+   <link rel="stylesheet" href="navstyles.css">
+   <link rel="stylesheet" href="footer.css">
+  <style>
+  
+  #services .card {
+    color: #000;
+    margin-bottom: 30px;
+    background-color: #CADBDB;
+    height: 520px;
+    width: 341px;
+    border-radius: 57px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    margin-bottom: 90px;
+}
+
+#services .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+#services .card-img-top {
+    width: 100%;
+    height: 264px;
+    object-fit: cover;
+    transition: transform 1s;
+    border-top-left-radius: 57px;
+    border-top-right-radius: 57px;
+}
+
+#services .card:hover .card-img-top {
+    transform: scale(1.2);
+}
+
+.custom-btn {
+  background-color: #50C2C9; /* custom teal */
+  color: white;
+  border-radius: 10px;
+}
+
+.custom-btn:hover {
+  background-color: #3A9FA5; /* darker shade on hover */
+}
+
+.features-glance-container {
+    max-width: 1100px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+    text-align: center;  
+    margin-bottom: 80px; 
+}
+
+.features-glance-container h2 {
+    font-family: 'Fraunces', serif; 
+    font-size: 30px; 
+    font-weight: 700; 
+    color: #2E3A59; 
+    position: relative; 
+    display: inline-block; 
+    padding-bottom: 5px; 
+}
+
+.features-glance-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%; 
+    height: 3px; 
+    background-color: #2E3A59; 
+}
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">
+    <a href="home.html">
+      <img src="assets/logo.png" alt="SafeMediDisposal Logo">
+    </a>
+  </div>
+
+  <nav class="nav-links">
+    <a href="home.html">HOME</a>
+    <a href="services.html" class="active">SERVICES</a>
+    <a href="aboutus.html">ABOUT US</a>
+    <a href="contactus.html">CONTACT US</a>
+  </nav>
+
+  <div class="icons">
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Search icon -->
+    <button id="search-toggle" aria-label="Search" class="search-toggle-btn">
+      <i class="fas fa-search"></i>
+    </button>
+
+    <!-- Profile icon -->
+    <a href="profile.html" id="profile-link" class="profile-icon">
+      <i class="fas fa-user"></i>
+    </a>
+  </div>
+</header>
+
+<!-- ✅ Now outside the header/icons -->
+<div class="search-wrapper" id="search-wrapper" style="display: none;">
+  <form id="search-form" class="feature-search-form">
+    <label for="feature-select" class="visually-hidden">Choose a feature</label>
+    <select id="feature-select" aria-label="Search by feature">
+      <option value="">-- Select a feature --</option>
+      <option value="easy-waste">Easy Waste Deposit</option>
+      <option value="reward-points">Earn Points</option>
+      <option value="redeem-rewards">Redeem Rewards</option>
+      <option value="track-history">Track Disposal History</option>
+      <option value="news-updates">News & Updates</option>
+      <option value="smart-scan">Smart Waste Scan</option>
+      <option value="rfid-tracking">RFID-Enabled Tracking</option>
+      <option value="pickup-request">Request Pickup</option>
+      <option value="campaigns">Explore Campaigns</option>
+    </select>
+    <button type="submit" class="search-btn">Go</button>
+  </form>
+</div>
+
+
+
+    <div class="text">
+      <h1>Welcome to SafeMediDisposal Services</h1>
+      <p class="intro-text">
+        Explore the comprehensive services offered by SafeMediDisposal, designed to make medical waste management safe, simple, and rewarding. From easy disposal methods to earning valuable points, we provide the tools you need to contribute to a cleaner, healthier environment.
+      </p>
+    </div>
+    <div class="features-glance-container" >
+        <h2 >Features at a Glance :</h2>
+    </div>
+
+    <!-- Services-->
+    <section id="services" class=""px-5 px-3>
+        <div class="row">
+
+            <div id="easy-waste" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="https://magicmistgroup.com/wp-content/uploads/2021/03/Medical-Waste-Units.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Easy Waste Deposit</b></h5>
+                        <p class="card-text">Seamlessly dispose of your medical waste directly through the app or website. Find collection points or arrange a convenient pickup.</p>
+                        <p><b>Start Disposal</b></p>
+                        <a href="home.html#impact-content" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="reward-points" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="assets/points.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Earn Points for Every Disposal</b></h5>
+                        <p class="card-text">Contribute to a cleaner environment and earn valuable points with every responsible medical waste deposit. Watch your rewards grow!</p>
+                        <p><b>View Points System</b></p>
+                        <a href="gamification.html" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="redeem-rewards" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="assets/digital wallet.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Redeem Your Rewards</b></h5>
+                        <p class="card-text">Exchange your earned points for valuable rewards, cash equivalents via e-wallet, or exclusive benefits. Your efforts truly pay off!</p>
+                        <p><b>Redeem Points</b></p>
+                        <a href="redemption.html" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="track-history" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="assets/graph.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Track Your Disposal History</b></h5>
+                        <p class="card-text">Keep a detailed record of all your waste disposals and points earned. Transparency in your contributions to a greener world.</p>
+                        <p><b>View History</b></p>
+                        <a href="dashboard.html" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="news-updates" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="assets/news.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Latest News & Updates</b></h5>
+                        <p class="card-text">Stay informed on environmental initiatives, SafeMediDisposal campaigns, and important updates. Be part of our growing community!</p>
+                        <p><b>View All Articles</b></p>
+                        <a href="news.html" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="smart-scan" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="assets/phone.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Smart Waste Scan</b></h5>
+                        <p class="card-text">Use our smart Waste Scan to instantly identify your medical waste and view disposal tips with estimated points—before you deposit!</p>
+                        <p><b>Scan Now</b></p>
+                        <a href="detection.html" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="rfid-tracking" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="assets/RFID.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>RFID-Enabled Tracking</b></h5>
+                        <p class="card-text">Enjoy secure, hassle-free disposal with our RFID system—every deposit is tracked for full transparency and accountability.</p>
+                        <p><b>Track Your Waste</b></p>
+                        <a href="qrcodescanner.html" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pickup-request" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="assets/colorful dustbins.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Request On-Demand Pickup</b></h5>
+                        <p class="card-text">Easily schedule a medical waste pickup from your location through our platform for added convenience or larger quantities.</p>
+                        <p><b>Book Now</b></p>
+                        <a href="pickup.html" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="campaigns" class="col-lg-4 col-sm-6">
+                <div class="card mx-auto" style="text-align: center;">
+                    <img src="assets/campaign.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Explore Campaigns</b></h5>
+                        <p class="card-text">Join our clean-up campaigns to promote responsible medical waste disposal and help create a safer environment.</p>
+                        <p><b>Join Now</b></p>
+                        <a href="campaign.html" class="btn custom-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <img class="logo" src="assets/whitelogo-Photoroom.jpg" alt="SafeMediDisposal White logo">
+        <div class="container">
+        <div class="about">
+            <h3>About SafeMediDisposal</h3>
+            <p>Welcome to SafeMediDisposal, your partner in fostering a cleaner and healthier environment. Our mission
+                is to empower individuals and communities to manage medical waste responsibly, transforming disposal
+                into an impactful and rewarding process.</p>
+                <div class="socials">
+                   <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                   <i class="fa-brands fa-square-facebook"></i>
+                   <i class="fa-brands fa-linkedin"></i>
+                </div>
+        </div>
+        <div class="explore">
+            <h3>Explore</h3>
+            <ul>
+                <li>HOME</li>
+                <li>SERVICES</li>
+                <li>ABOUT US</li>
+                <li>CONTACT US</li>
+            </ul>
+        </div>
+        <div class="support">
+            <h3>Customer Support</h3>
+            <p>Have questions or need assistance? Our dedicated customer service team is here to help. Contact us:</p>
+            <div class="phone"><b>Phone</b>:  0645678923</div>
+            <br>
+            <div class="mail"><b>Email</b>:  SafeMediDisposal@gmail.com</div>
+        </div>
+        </div>
+        <div class="rights-reserved">SafeMediDisposal © 2025 SafeMediDisposal. All rights reserved.</div>
+        
+    </footer>
+    <script src="navbar.js"></script>
+    <script src="footer.js"></script>
+    <script src="search.js"></script>
+
+</body>
+</html>

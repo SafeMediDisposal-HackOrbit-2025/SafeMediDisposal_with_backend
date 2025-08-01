@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickup Management - HealthWaste</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* --- GLOBAL STYLES & VARIABLES --- */
+        :root {
+            --primary-color: #50c2c9; /* Teal color from HealthWaste */
+            --primary-dark: #028090; /* Darker teal for emphasis */
+            --secondary-color: #F0F3F4;
+            --background-color: #CADBDB;
+            --text-color: #2C3E50;
+            --text-light: #808B96;
+            --white-color: #FFFFFF;
+            --card-shadow: rgba(0, 0, 0, 0.05);
+            --success-color: #27AE60;
+            --danger-color: #E74C3C;
+            --warning-color: #F39C12;
+            --info-color: #3498DB;
+            --dark-card-background: #171821;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card {
+            background-color: var(--white-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.08); 
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        /* --- APP LAYOUT --- */
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: var(--primary-color); 
+            color: var(--white-color);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .sidebar-header i {
+            margin-right: 0.5rem;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-nav a.active, .sidebar-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-nav a.active {
+            font-weight: 600;
+        }
+
+        .sidebar-nav a i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-header .logo {
+            max-height: 70px; /* Adjust as needed */
+            width: auto; /* Maintain aspect ratio */
+            margin-right: 0.5rem; /* Space between logo and first menu item if desired */
+        }
+
+        /* --- MAIN HEADER --- */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: var(--white-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            width: 350px;
+            box-shadow: 0 2px 4px var(--card-shadow);
+        }
+
+        .search-bar i {
+            color: var(--text-light);
+            margin-right: 0.5rem;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile i {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Page Title */
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+        }
+
+        /* Pickup Grid */
+        .pickup-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            grid-template-areas:
+                "quick-stats quick-stats pickup-schedule"
+                "active-pickups active-pickups request-form"
+                "pickup-history pickup-history pickup-analytics";
+        }
+
+        .quick-stats { grid-area: quick-stats; }
+        .request-form { grid-area: request-form; }
+        .active-pickups { grid-area: active-pickups; }
+        .pickup-schedule { grid-area: pickup-schedule; }
+        .pickup-history { grid-area: pickup-history; }
+        .pickup-analytics { grid-area: pickup-analytics; }
+
+        /* Quick Stats Cards */
+        .stats-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: var(--dark-card-background);
+            color: var(--white-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-info h4 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .stat-info .change {
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        /* Request Form */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--secondary-color);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            background: var(--white-color);
+            color: var(--text-color);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        /* Pickup Items */
+        .pickup-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border: 1px solid var(--secondary-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: var(--white-color);
+        }
+
+        .pickup-info {
+            flex: 1;
+        }
+
+        .pickup-id {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .pickup-details {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .pickup-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-scheduled {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--info-color);
+        }
+
+        .status-transit {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-completed {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-pending {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+        }
+
+        .pickup-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* Schedule Table */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .schedule-table th {
+            background: var(--secondary-color);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .schedule-table tr:hover {
+            background: rgba(80, 194, 201, 0.05);
+        }
+
+        /* Calendar Style */
+        .calendar-container {
+            background: var(--white-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: var(--secondary-color);
+        }
+
+        .calendar-day {
+            background: var(--white-color);
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .calendar-day:hover {
+            background: rgba(80, 194, 201, 0.1);
+        }
+
+        .calendar-day.has-pickup {
+            background: rgba(80, 194, 201, 0.2);
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .calendar-day.today {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Filters */
+        .filters-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid var(--secondary-color);
+            border-radius: 6px;
+            background: var(--white-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Website Header */
+        .website-header {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .pickup-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-areas:
+                    "quick-stats pickup-schedule"
+                    "active-pickups request-form"
+                    "pickup-history pickup-analytics";
+            }
+        }
+
+        @media (max-width: 992px) {
+            .pickup-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "quick-stats"
+                    "request-form"
+                    "active-pickups"
+                    "pickup-schedule"
+                    "pickup-history"
+                    "pickup-analytics";
+            }
+            
+            .stats-container {
+                flex-wrap: wrap;
+            }
+            
+            .stat-card {
+                flex-basis: calc(50% - 0.5rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .main-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stat-card {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/whitelogo-Photoroom.jpg" alt="HealthWaste Logo" class="logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+                    <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                    <li><a href="qrcodescanner.html"><i class="fa-solid fa-qrcode"></i></i> QR Code</a></li>
+                    <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
+                    <li><a href="gamification.html"><i class="fa-solid fa-file-lines"></i> Waste Types</a></li>
+                    <li><a href="#" class="active"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+                    <li><a href="contactus.html"><i class="fa-solid fa-message"></i> Message</a></li>
+                    <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="campaign.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search pickups...">
+                </div>
+                <div class="user-profile">
+                    <i class="fa-regular fa-bell"></i>
+                    <i class="fa-solid fa-user-circle user-icon"></i> 
+                </div>
+            </header>
+
+            <h1 class="page-title">Pickup Management</h1>
+
+            <div class="filters-container">
+                <label>Filter by Status:</label>
+                <select class="filter-select" onchange="filterPickups(this.value)">
+                    <option value="all">All Pickups</option>
+                    <option value="scheduled">Scheduled</option>
+                    <option value="transit">In Transit</option>
+                    <option value="completed">Completed</option>
+                    <option value="pending">Pending</option>
+                </select>
+                
+                <label>Filter by Date:</label>
+                <select class="filter-select">
+                    <option>Today</option>
+                    <option>This Week</option>
+                    <option>This Month</option>
+                    <option>All Time</option>
+                </select>
+                
+                <button class="btn btn-primary" onclick="showNewRequestForm()">
+                    <i class="fa-solid fa-plus"></i> New Pickup Request
+                </button>
+            </div>
+
+            <div class="pickup-grid">
+                <div class="card quick-stats">
+                    <h3 class="card-title">Pickup Statistics</h3>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="color: var(--info-color);">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>25</h4>
+                                <p>Scheduled Today</p>
+                                <p class="change" style="color: var(--success-color);">+8% from yesterday</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="color: var(--warning-color);">
+                                <i class="fa-solid fa-truck"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>12</h4>
+                                <p>In Transit</p>
+                                <p class="change" style="color: var(--warning-color);">Active now</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="color: var(--success-color);">
+                                <i class="fa-solid fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>156</h4>
+                                <p>Completed This Week</p>
+                                <p class="change" style="color: var(--success-color);">+15% from last week</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card request-form">
+                    <h3 class="card-title">Quick Pickup Request</h3>
+                    <form onsubmit="submitPickupRequest(event)">
+                        <div class="form-group">
+                            <label>Hospital/Location</label>
+                            <select class="form-control">
+                                <option>City General Hospital</option>
+                                <option>Metro Medical Center</option>
+                                <option>Regional Health Center</option>
+                                <option>Emergency Care Unit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Waste Type</label>
+                            <select class="form-control">
+                                <option>Sharps (needles, blades)</option>
+                                <option>Infectious Waste</option>
+                                <option>Pharmaceutical Waste</option>
+                                <option>Hazardous Waste</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Estimated Weight (kg)</label>
+                            <input type="number" class="form-control" placeholder="Enter weight">
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Priority Level</label>
+                            <select class="form-control">
+                                <option>Normal</option>
+                                <option>High</option>
+                                <option>Emergency</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-paper-plane"></i> Submit Request
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card active-pickups">
+                    <h3 class="card-title">Active Pickups</h3>
+                    <div class="pickup-item">
+                        <div class="pickup-info">
+                            <div class="pickup-id">#PKP-2024-001</div>
+                            <div class="pickup-details">City General Hospital • Sharps Waste • 15kg</div>
+                            <div class="pickup-details">Scheduled: Today 10:00 AM</div>
+                            <span class="pickup-status status-transit">In Transit</span>
+                        </div>
+                        <div class="pickup-actions">
+                            <button class="btn btn-secondary btn-sm">Track</button>
+                            <button class="btn btn-warning btn-sm">Update</button>
+                        </div>
+                    </div>
+
+                    <div class="pickup-item">
+                        <div class="pickup-info">
+                            <div class="pickup-id">#PKP-2024-002</div>
+                            <div class="pickup-details">Metro Medical Center • Pharmaceutical • 8kg</div>
+                            <div class="pickup-details">Scheduled: Today 2:00 PM</div>
+                            <span class="pickup-status status-scheduled">Scheduled</span>
+                        </div>
+                        <div class="pickup-actions">
+                            <button class="btn btn-secondary btn-sm">View</button>
+                            <button class="btn btn-primary btn-sm">Start</button>
+                        </div>
+                    </div>
+
+                    <div class="pickup-item">
+                        <div class="pickup-info">
+                            <div class="pickup-id">#PKP-2024-003</div>
+                            <div class="pickup-details">Regional Health Center • Infectious • 22kg</div>
+                            <div class="pickup-details">Requested: Today 8:30 AM</div>
+                            <span class="pickup-status status-pending">Pending Approval</span>
+                        </div>
+                        <div class="pickup-actions">
+                            <button class="btn btn-success btn-sm">Approve</button>
+                            <button class="btn btn-danger btn-sm">Reject</button>
+                        </div>
+                    </div>
+
+                    <div class="pickup-item">
+                        <div class="pickup-info">
+                            <div class="pickup-id">#PKP-2024-000</div>
+                            <div class="pickup-details">Emergency Care Unit • Hazardous • 12kg</div>
+                            <div class="pickup-details">Completed: Today 9:15 AM</div>
+                            <span class="pickup-status status-completed">Completed</span>
+                        </div>
+                        <div class="pickup-actions">
+                            <button class="btn btn-secondary btn-sm">Receipt</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card pickup-schedule">
+                    <h3 class="card-title">Weekly Schedule</h3>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            August 2025
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-day">29</div>
+                            <div class="calendar-day">30</div>
+                            <div class="calendar-day">31</div>
+                            <div class="calendar-day today">1</div>
+                            <div class="calendar-day has-pickup">2</div>
+                            <div class="calendar-day has-pickup">3</div>
+                            <div class="calendar-day">4</div>
+                            <div class="calendar-day">5</div>
+                            <div class="calendar-day has-pickup">6</div>
+                            <div class="calendar-day">7</div>
+                            <div class="calendar-day">8</div>
+                            <div class="calendar-day has-pickup">9</div>
+                            <div class="calendar-day">10</div>
+                            <div class="calendar-day">11</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-light);">
+                        <i class="fa-solid fa-circle" style="color: var(--primary-color); font-size: 0.5rem;"></i> Pickup scheduled
+                    </div>
+                </div>
+
+                <div class="card pickup-history">
+                    <h3 class="card-title">Recent Pickup History</h3>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Pickup ID</th>
+                                <th>Location</th>
+                                <th>Waste Type</th>
+                                <th>Weight</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#PKP-2024-000</td>
+                                <td>Emergency Care Unit</td>
+                                <td>Hazardous</td>
+                                <td>12kg</td>
+                                <td>Aug 1, 2025</td>
+                                <td><span class="pickup-status status-completed">Completed</span></td>
+                                <td><button class="btn btn-secondary btn-sm">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>#PKP-2024-005</td>
+                                <td>City General Hospital</td>
+                                <td>Sharps</td>
+                                <td>18kg</td>
+                                <td>Jul 31, 2025</td>
+                                <td><span class="pickup-status status-completed">Completed</span></td>
+                                <td><button class="btn btn-secondary btn-sm">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>#PKP-2024-004</td>
+                                <td>Metro Medical Center</td>
+                                <td>Infectious</td>
+                                <td>25kg</td>
+                                <td>Jul 30, 2025</td>
+                                <td><span class="pickup-status status-completed">Completed</span></td>
+                                <td><button class="btn btn-secondary btn-sm">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card pickup-analytics">
+                    <h3 class="card-title">Pickup Performance</h3>
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>On-Time Delivery Rate</span>
+                            <span style="font-weight: 600; color: var(--success-color);">94%</span>
+                        </div>
+                        <div style="background: var(--secondary-color); height: 8px; border-radius: 4px;">
+                            <div style="background: var(--success-color); height: 100%; width: 94%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Average Response Time</span>
+                            <span style="font-weight: 600; color: var(--primary-dark);">2.3 hours</span>
+                        </div>
+                        <div style="background: var(--secondary-color); height: 8px; border-radius: 4px;">
+                            <div style="background: var(--primary-color); height: 100%; width: 85%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Customer Satisfaction</span>
+                            <span style="font-weight: 600; color: var(--success-color);">4.8/5</span>
+                        </div>
+                        <div style="background: var(--secondary-color); height: 8px; border-radius: 4px;">
+                            <div style="background: var(--success-color); height: 100%; width: 96%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;">
+                        <div style="text-align: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-dark);">127</div>
+                            <div style="font-size: 0.875rem; color: var(--text-light);">Total This Month</div>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--success-color);">98.2%</div>
+                            <div style="font-size: 0.875rem; color: var(--text-light);">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function filterPickups(status) {
+            const pickupItems = document.querySelectorAll('.pickup-item');
+            pickupItems.forEach(item => {
+                const statusElement = item.querySelector('.pickup-status');
+                const itemStatus = statusElement.className.split(' ')[1].replace('status-', '');
+                
+                if (status === 'all' || itemStatus === status) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function showNewRequestForm() {
+            alert('New pickup request form would open here. This could be a modal or redirect to a detailed form page.');
+        }
+
+        function submitPickupRequest(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            // Simulate form submission
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Request Submitted!';
+                submitBtn.style.background = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Request';
+                    submitBtn.style.background = 'var(--primary-color)';
+                    submitBtn.disabled = false;
+                    form.reset();
+                }, 3000);
+            }, 2000);
+        }
+
+        // Add hover effects to navigation
+        document.querySelectorAll('.sidebar-nav a').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateX(5px)';
+                }
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Calendar interaction
+        document.querySelectorAll('.calendar-day').forEach(day => {
+            day.addEventListener('click', function() {
+                const dayNumber = this.textContent;
+                if (this.classList.contains('has-pickup')) {
+                    alert(`View pickups scheduled for August ${dayNumber}, 2025`);
+                } else {
+                    alert(`Schedule new pickup for August ${dayNumber}, 2025`);
+                }
+            });
+        });
+
+        // Pickup action buttons
+        document.querySelectorAll('.pickup-actions button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.textContent.trim();
+                const pickupId = this.closest('.pickup-item').querySelector('.pickup-id').textContent;
+                
+                switch(action) {
+                    case 'Track':
+                        alert(`Tracking pickup ${pickupId}. This would show real-time location and status updates.`);
+                        break;
+                    case 'Update':
+                        alert(`Update status for pickup ${pickupId}. This would open an update form.`);
+                        break;
+                    case 'View':
+                        alert(`View details for pickup ${pickupId}. This would show complete pickup information.`);
+                        break;
+                    case 'Start':
+                        alert(`Starting pickup ${pickupId}. Driver would be notified and status updated.`);
+                        break;
+                    case 'Approve':
+                        this.textContent = 'Approved';
+                        this.className = 'btn btn-success btn-sm';
+                        this.disabled = true;
+                        const statusSpan = this.closest('.pickup-item').querySelector('.pickup-status');
+                        statusSpan.textContent = 'Scheduled';
+                        statusSpan.className = 'pickup-status status-scheduled';
+                        break;
+                    case 'Reject':
+                        if (confirm('Are you sure you want to reject this pickup request?')) {
+                            this.closest('.pickup-item').style.display = 'none';
+                        }
+                        break;
+                    case 'Receipt':
+                        alert(`Generating receipt for pickup ${pickupId}. This would download or display the pickup receipt.`);
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

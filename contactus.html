@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - SafeMediDisposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="navstyles.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="contactus.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">
+    <a href="home.html">
+      <img src="assets/logo.png" alt="SafeMediDisposal Logo">
+    </a>
+  </div>
+
+  <nav class="nav-links">
+    <a href="home.html" >HOME</a>
+    <a href="services.html" >SERVICES</a>
+    <a href="aboutus.html">ABOUT US</a>
+    <a href="contactus.html" class="active">CONTACT US</a>
+  </nav>
+
+  <div class="icons">
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <button id="search-toggle" aria-label="Search" class="search-toggle-btn">
+      <i class="fas fa-search"></i>
+    </button>
+    <a href="profile.html" id="profile-link" class="profile-icon">
+      <i class="fas fa-user"></i>
+    </a>
+  </div>
+</header>
+
+<div class="search-wrapper" id="search-wrapper" style="display: none;">
+  <form id="search-form" class="feature-search-form">
+    <label for="feature-select" class="visually-hidden">Choose a feature</label>
+    <select id="feature-select" aria-label="Search by feature">
+      <option value="">-- Select a feature --</option>
+      <option value="easy-waste">Easy Waste Deposit</option>
+      <option value="reward-points">Earn Points</option>
+      <option value="redeem-rewards">Redeem Rewards</option>
+      <option value="track-history">Track Disposal History</option>
+      <option value="news-updates">News & Updates</option>
+      <option value="smart-scan">Smart Waste Scan</option>
+      <option value="rfid-tracking">RFID-Enabled Tracking</option>
+      <option value="pickup-request">Request Pickup</option>
+      <option value="campaigns">Explore Campaigns</option>
+    </select>
+    <button type="submit" class="search-btn">Go</button>
+  </form>
+</div>
+
+<section class="container">
+  <div class="contact-section">
+    <div class="contact-content">
+      <h1>Contact Us</h1>
+      <p>We'd Love to Hear From You!</p>
+    </div>
+    <div class="contact-image">
+      <img src="assets/contactus.jpg" alt="Medical supplies and files" />
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <form id="contact-form">
+      <div class="form-group">
+        <label class="first" for="firstName">First Name</label><br />
+        <input type="text" id="firstName" name="firstName" />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label><br />
+        <input type="text" id="lastName" name="lastName" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label><br />
+        <input type="email" id="email" name="email" />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label><br />
+        <textarea id="message" name="message"></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Submit</button>
+      <p id="form-message"></p>
+    </form>
+  </div>
+
+  <div class="footer-text">
+    Thank you for reaching out to SafeMediDisposal. We look forward to assisting you!
+  </div>
+</section>
+
+<footer>
+  <img class="logo" src="assets/whitelogo-Photoroom.jpg" alt="SafeMediDisposal White logo">
+  <div class="container">
+    <div class="about">
+      <h3>About SafeMediDisposal</h3>
+      <p>Welcome to SafeMediDisposal, your partner in fostering a cleaner and healthier environment. Our mission
+        is to empower individuals and communities to manage medical waste responsibly, transforming disposal
+        into an impactful and rewarding process.</p>
+      <div class="socials">
+        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+        <i class="fa-brands fa-square-facebook"></i>
+        <i class="fa-brands fa-linkedin"></i>
+      </div>
+    </div>
+    <div class="explore">
+      <h3>Explore</h3>
+      <ul>
+        <li>HOME</li>
+        <li>SERVICES</li>
+        <li>ABOUT US</li>
+        <li>CONTACT US</li>
+      </ul>
+    </div>
+    <div class="support">
+      <h3>Customer Support</h3>
+      <p>Have questions or need assistance? Our dedicated customer service team is here to help. Contact us:</p>
+      <div class="phone"><b>Phone</b>:  0645678923</div>
+      <br>
+      <div class="mail"><b>Email</b>:  SafeMediDisposal@gmail.com</div>
+    </div>
+  </div>
+  <div class="rights-reserved" id="copyright">
+    SafeMediDisposal © <span id="year">2025</span> SafeMediDisposal. All rights reserved.
+  </div>
+  <button id="scrollToTopBtn" title="Back to top">↑</button>
+</footer>
+
+<script src="navbar.js"></script>
+<script src="footer.js"></script>
+<script src="contactus.js"></script>
+<script src="search.js"></script>
+</body>
+</html>

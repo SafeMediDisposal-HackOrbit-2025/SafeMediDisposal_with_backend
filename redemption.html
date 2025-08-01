@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Point Redemption - Medical Waste Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #50c2c9;
+      --primary-dark: #028090;
+      --secondary-color: #F0F3F4;
+      --background-color: #CADBDB;
+      --text-color: #2C3E50;
+      --text-light: #808B96;
+      --white-color: #FFFFFF;
+      --card-shadow: rgba(0, 0, 0, 0.05);
+      --success-color: #27AE60;
+      --danger-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); color: var(--text-color); min-height: 100vh; line-height: 1.6; }
+    .app-container { display: flex; min-height: 100vh; }
+    .sidebar { width: 250px; flex-shrink: 0; background: var(--primary-color); color: var(--white-color); padding: 2rem 1rem; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out; }
+    .sidebar-header .logo { max-height: 70px; margin-right: 0.5rem; }
+    .sidebar-nav ul { list-style: none; }
+    .sidebar-nav a { display: flex; align-items: center; padding: 0.8rem 1rem; border-radius: 8px; margin: 0.5rem 0; transition: background-color 0.3s; text-decoration: none; color: inherit; }
+    .sidebar-nav a.active, .sidebar-nav a:hover { background-color: rgba(255, 255, 255, 0.2); }
+    .sidebar-nav a i { margin-right: 1rem; font-size: 1.2rem; width: 20px; text-align: center; }
+    .main-content { flex-grow: 1; padding: 2rem; overflow-y: auto; }
+    .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .page-title { font-size: 2rem; font-weight: 700; display: flex; align-items: center; gap: 1rem; }
+    .card { background-color: var(--white-color); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px var(--card-shadow); border: 1px solid rgba(0, 0, 0, 0.08); margin-bottom: 1rem; animation: fadeIn 0.6s ease-out; }
+    .card-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .redemption-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .balance-card { background: var(--primary-color); color: var(--white-color); text-align: center; position: relative; overflow: hidden; }
+    .balance-info { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .balance-item { background: rgba(255, 255, 255, 0.2); padding: 1rem; border-radius: 12px; }
+    .balance-value { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .balance-label { font-size: 0.9rem; opacity: 0.9; }
+    .exchange-rate { background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 12px; margin-top: 1rem; font-size: 0.9rem; border: 1px solid rgba(255, 255, 255, 0.2); }
+    .redemption-option { background: var(--secondary-color); border: 2px solid rgba(0, 0, 0, 0.1); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; cursor: pointer; transition: all 0.3s ease; position: relative; }
+    .redemption-option:hover { border-color: var(--primary-color); background: var(--white-color); transform: translateX(5px); }
+    .redemption-option.selected { border-color: var(--primary-color); background: rgba(80, 194, 201, 0.05); }
+    .redemption-option.selected::after { content: '✓'; position: absolute; top: 1rem; right: 1rem; background: var(--primary-color); color: var(--white-color); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
+    .option-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .custom-amount { display: none; margin-top: 1rem; padding: 1rem; background: var(--white-color); border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.1); }
+    .custom-amount input { width: 100%; padding: 0.75rem; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 6px; font-size: 1rem; margin-top: 0.5rem; }
+    .action-buttons { display: flex; gap: 1rem; margin-top: 1rem; }
+    .btn { flex: 1; padding: 1rem 1.5rem; font-size: 1rem; font-weight: 600; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .btn-primary { background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); color: var(--white-color); }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; backdrop-filter: blur(4px); }
+    .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--white-color); border-radius: 20px; padding: 2rem; max-width: 500px; width: 90%; }
+    .modal h3 { color: var(--primary-dark); font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+    .success-icon { text-align: center; font-size: 4rem; margin-bottom: 1rem; }
+    .loading { display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: var(--white-color); animation: spin 1s linear infinite; margin-right: 0.5rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; background: none; border: none; color: var(--text-color); z-index: 1002; }
+    @media (max-width: 768px) {
+        .sidebar { position: fixed; top: 0; left: 0; height: 100%; z-index: 1001; transform: translateX(-100%); box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
+        .sidebar.active { transform: translateX(0); }
+        .main-header { justify-content: space-between; width: 100%; }
+        .menu-toggle { display: block; }
+        .redemption-grid, .balance-info { grid-template-columns: 1fr; }
+        .action-buttons { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/whitelogo-Photoroom.jpg" alt="Company Logo" class="logo">
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+            <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="qrcodescanner.html"><i class="fa-solid fa-qrcode"></i> QR Code</a></li>
+            <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
+            <li><a href="gamification.html"><i class="fa-solid fa-trophy"></i> Results</a></li>
+            <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+            <li><a href="contactus.html"><i class="fa-solid fa-message"></i> Message</a></li>
+            <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li><a href="campaign.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <button class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+        <h1 class="page-title"><i class="fa-solid fa-coins"></i> Point Redemption Center</h1>
+        <div class="user-profile">
+            <i class="fa-regular fa-bell"></i>
+            <i class="fa-solid fa-user-circle user-icon"></i> 
+        </div>
+      </header>
+
+      <div class="redemption-grid">
+        <div class="card balance-card">
+          <h2 class="card-title"><i class="fa-solid fa-wallet"></i> Your Balance</h2>
+          <div class="balance-info">
+            <div class="balance-item"><div class="balance-value" id="totalPoints">0</div><div class="balance-label">Points</div></div>
+            <div class="balance-item"><div class="balance-value" id="totalRupees">₹0</div><div class="balance-label">Indian Rupees</div></div>
+          </div>
+          <div class="exchange-rate">💡 Exchange Rate: 10 Points = ₹1 INR</div>
+        </div>
+        <div class="card">
+          <h2 class="card-title"><i class="fa-solid fa-chart-line"></i> Quick Stats</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="text-align: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;"><div style="font-size: 1.5rem; font-weight: 700; color: var(--success-color);" id="totalRedeemed">₹0</div><div style="font-size: 0.8rem; color: var(--text-light);">Total Redeemed</div></div>
+            <div style="text-align: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;"><div style="font-size: 1.5rem; font-weight: 700; color: var(--warning-color);" id="totalEarned">0</div><div style="font-size: 0.8rem; color: var(--text-light);">Points Earned</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title"><i class="fa-solid fa-gift"></i> Redemption Options</h2>
+        <div class="redemption-option" onclick="selectOption(event, 'paytm', 50)"><div class="option-title"><i class="fa-solid fa-mobile-alt" style="color: var(--info-color);"></i> Paytm Wallet</div><div class="option-details">Instant transfer</div><div class="option-value">Minimum: ₹5 (50 points)</div></div>
+        <div class="redemption-option" onclick="selectOption(event, 'upi', 100)"><div class="option-title"><i class="fa-solid fa-university" style="color: var(--success-color);"></i> UPI Transfer</div><div class="option-details">Direct transfer to any UPI ID</div><div class="option-value">Minimum: ₹10 (100 points)</div></div>
+        <div class="redemption-option" onclick="selectOption(event, 'bank', 250)"><div class="option-title"><i class="fa-solid fa-building-columns" style="color: var(--primary-color);"></i> Bank Transfer</div><div class="option-details">Transfer to bank account</div><div class="option-value">Minimum: ₹25 (250 points)</div></div>
+        <div class="redemption-option" onclick="selectOption(event, 'custom', 10)"><div class="option-title"><i class="fa-solid fa-sliders" style="color: var(--danger-color);"></i> Custom Amount</div><div class="option-details">Enter your preferred amount</div><div class="option-value">Min ₹1 (10 points)</div><div class="custom-amount" id="customAmount"><label for="customInput">Enter amount in rupees:</label><input type="number" id="customInput" min="1" oninput="updateCustomAmount()"><div id="customPoints"></div></div></div>
+        <div class="action-buttons">
+          <button class="btn btn-secondary" onclick="resetSelection()"><i class="fa-solid fa-arrow-rotate-left"></i> Reset</button>
+          <button class="btn btn-primary" id="redeemBtn" onclick="showPaymentMethods()" disabled>Select Option First</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal" id="paymentModal">
+    <div class="modal-content">
+      <h3><i class="fa-solid fa-credit-card"></i> Select Payment Method</h3>
+      <div id="paymentMethods"></div>
+      <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" id="confirmBtn" onclick="processRedemption()" disabled>Confirm Redemption</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="successModal">
+    <div class="modal-content">
+      <div class="success-icon">🎉</div>
+      <h3>Redemption Successful!</h3>
+      <div id="successMessage"></div>
+      <div class="action-buttons" style="margin-top: 2rem;">
+        <button class="btn btn-primary" onclick="closeModal(); window.location.reload();"><i class="fa-solid fa-check"></i> Continue</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    window.location.href = 'login.html';
+  }
+
+  let totalPoints = 0;
+  let selectedOption = null;
+  let selectedPayment = null;
+  let redemptionAmount = 0;
+
+  async function loadBalance() {
+    try {
+      const profileRes = await fetch('/api/user/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!profileRes.ok) throw new Error('Could not fetch profile');
+      const user = await profileRes.json();
+      totalPoints = user.points || 0;
+
+      const historyRes = await fetch('/api/redemptions/history', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!historyRes.ok) throw new Error('Could not fetch redemption history');
+      const history = await historyRes.json();
+
+      let totalRedeemedRupees = 0;
+      history.forEach(item => {
+        totalRedeemedRupees += item.amountInRupees;
+      });
+
+      document.getElementById('totalPoints').textContent = totalPoints;
+      document.getElementById('totalRupees').textContent = `₹${Math.floor(totalPoints / 10)}`;
+      document.getElementById('totalRedeemed').textContent = `₹${totalRedeemedRupees}`;
+      document.getElementById('totalEarned').textContent = totalPoints + (totalRedeemedRupees * 10);
+    } catch (error) {
+      console.error('Error loading balance:', error);
+      document.getElementById('totalPoints').textContent = 'Error';
+    }
+  }
+
+  async function processRedemption() {
+    const confirmBtn = document.getElementById('confirmBtn');
+    confirmBtn.innerHTML = '<span class="loading"></span>Processing...';
+    confirmBtn.disabled = true;
+
+    const pointsToRedeem = redemptionAmount * 10;
+
+    try {
+      const response = await fetch('/api/redemptions/redeem', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ pointsToRedeem, method: selectedPayment })
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.msg || 'Redemption failed');
+
+      document.getElementById('successMessage').innerHTML = `
+        <p style="text-align: center; margin-bottom: 1rem;"><strong>${data.msg}</strong></p>
+        <p style="text-align: center;"><strong>₹${redemptionAmount}</strong> has been processed!</p>
+        <p style="text-align: center; color: var(--text-light); font-size: 0.9rem;">
+          New Balance: ${data.newBalance} points
+        </p>`;
+      closeModal();
+      document.getElementById('successModal').style.display = 'block';
+    } catch (error) {
+      alert(error.message);
+      confirmBtn.innerHTML = 'Confirm Redemption';
+      confirmBtn.disabled = false;
+    }
+  }
+
+  function selectOption(event, type, minPoints) {
+    document.querySelectorAll('.redemption-option').forEach(opt => opt.classList.remove('selected'));
+    if (totalPoints < minPoints) {
+      alert(`You need at least ${minPoints} points. You have ${totalPoints}.`);
+      return;
+    }
+    event.currentTarget.classList.add('selected');
+    selectedOption = type;
+    if (type === 'custom') {
+      document.getElementById('customAmount').style.display = 'block';
+      document.getElementById('redeemBtn').textContent = 'Enter Amount';
+      document.getElementById('redeemBtn').disabled = true;
+    } else {
+      document.getElementById('customAmount').style.display = 'none';
+      document.getElementById('customInput').value = '';
+      redemptionAmount = Math.floor(minPoints / 10);
+      updateRedeemButton();
+    }
+  }
+
+  function updateCustomAmount() {
+    const amount = parseInt(document.getElementById('customInput').value) || 0;
+    const requiredPoints = amount * 10;
+    document.getElementById('customPoints').textContent = `Requires ${requiredPoints} points`;
+    const btn = document.getElementById('redeemBtn');
+    if (amount > 0 && requiredPoints <= totalPoints) {
+      redemptionAmount = amount;
+      updateRedeemButton();
+    } else {
+      btn.disabled = true;
+      btn.textContent = requiredPoints > totalPoints ? 'Insufficient Points' : 'Enter Valid Amount';
+    }
+  }
+
+  function updateRedeemButton() {
+    const btn = document.getElementById('redeemBtn');
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-arrow-right"></i> Redeem ₹${redemptionAmount} (${redemptionAmount * 10} points)`;
+  }
+
+  function resetSelection() {
+    document.querySelectorAll('.redemption-option').forEach(opt => opt.classList.remove('selected'));
+    document.getElementById('customAmount').style.display = 'none';
+    document.getElementById('customInput').value = '';
+    const btn = document.getElementById('redeemBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-hand-pointer"></i> Select Option First';
+    selectedOption = null;
+    redemptionAmount = 0;
+  }
+
+  function showPaymentMethods() {
+    const paymentMethodsDiv = document.getElementById('paymentMethods');
+    let methodsHTML = '';
+    const allMethods = {
+      paytm: `
+        <div class="payment-method" onclick="selectPayment(event, 'Paytm Wallet')">
+          <div class="payment-icon"><i class="fa-solid fa-mobile-alt" style="color: var(--info-color);"></i></div>
+          <div class="payment-info"><h4>Paytm Mobile Number</h4><p>Instant transfer</p></div>
+        </div>`,
+      upi: `
+        <div class="payment-method" onclick="selectPayment(event, 'UPI Transfer')">
+          <div class="payment-icon"><i class="fa-solid fa-link" style="color: var(--success-color);"></i></div>
+          <div class="payment-info"><h4>UPI ID</h4><p>e.g., user@paytm</p></div>
+        </div>`,
+      bank: `
+        <div class="payment-method" onclick="selectPayment(event, 'Bank Account')">
+          <div class="payment-icon"><i class="fa-solid fa-building-columns" style="color: var(--primary-color);"></i></div>
+          <div class="payment-info"><h4>Bank Account</h4><p>2-3 business days</p></div>
+        </div>`,
+      gift: `
+        <div class="payment-method" onclick="selectPayment(event, 'Amazon Gift Card')">
+          <div class="payment-icon"><i class="fa-solid fa-box" style="color: var(--warning-color);"></i></div>
+          <div class="payment-info"><h4>Amazon Gift Card</h4><p>Delivered to your email</p></div>
+        </div>
+        <div class="payment-method" onclick="selectPayment(event, 'Flipkart Gift Card')">
+          <div class="payment-icon"><i class="fa-solid fa-shopping-cart" style="color: var(--info-color);"></i></div>
+          <div class="payment-info"><h4>Flipkart Gift Card</h4><p>Delivered to your email</p></div>
+        </div>`
+    };
+
+    methodsHTML = allMethods[selectedOption] || (allMethods['paytm'] + allMethods['upi']);
+    paymentMethodsDiv.innerHTML = methodsHTML;
+    document.getElementById('paymentModal').style.display = 'block';
+  }
+
+  function selectPayment(event, method) {
+    document.querySelectorAll('.payment-method').forEach(pm => pm.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    selectedPayment = method;
+    document.getElementById('confirmBtn').disabled = false;
+  }
+
+  function closeModal() {
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.style.display = 'none';
+    });
+    resetSelection();
+  }
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', loadBalance);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+* Reset default margins and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+/* Fix for main container if you have one */
+.main-container,
+.wrapper,
+main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* ENDS */
+footer {
+  background-color: #50C2C9;
+  width: 100%;
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+footer .logo {
+   width: 220px;
+  height: auto;
+  padding: 15px;
+}
+
+footer .container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 0 30px 30px;
+  color: #FFFFFF;
+  font-family: "Poppins", sans-serif;
+  font-weight: lighter;
+  font-style: normal;
+  font-size: 18px;
+}
+
+footer .container h3 {
+  font-size: 22px;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+.explore {
+  margin-left: 60px;
+}
+
+.explore ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  line-height: 30px;
+}
+
+.socials {
+  margin-top: 10px;
+}
+
+.socials i {
+  font-size: 28px;
+  margin-right: 10px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.socials i:hover {
+  transform: scale(1.1);
+}
+
+.phone p, .mail p {
+  font-weight: bolder;
+}
+
+.rights-reserved {
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  font-size: 14px;
+}
+
+#scrollToTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 100;
+  font-size: 22px;
+  font-weight: 900;
+  padding: 12px 16px;
+  background-color: #35c4cf;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+#scrollToTopBtn:focus {
+  outline: none;
+}
+
+#scrollToTopBtn:active {
+  background-color: #2e3a59;
+}
+
+#scrollToTopBtn:hover {
+  background-color: #2e3a59;
+}
+
+/* 🔽 Responsive: Tablet & Below */
+@media (max-width: 768px) {
+  footer .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 0 20px 30px;
+    gap: 20px;
+  }
+
+  .explore {
+    margin-left: 0;
+  }
+
+  footer .logo {
+    width: 180px;
+    padding: 20px 15px;
+  }
+
+  footer .container h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  footer .container p,
+  footer .container ul,
+  footer .container li,
+  footer .container div {
+    font-size: 16px;
+  }
+
+  .about p {
+    margin-bottom: 20px;
+  }
+
+  .explore ul {
+    line-height: 35px;
+  }
+
+  .socials {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .socials i {
+    font-size: 30px;
+    margin: 0 15px;
+  }
+
+  .support {
+    margin-top: 10px;
+  }
+
+  .rights-reserved {
+    font-size: 13px;
+    padding: 25px 15px;
+  }
+}
+
+/* 🔽 Extra Small Devices (iPhone XR and similar) */
+@media (max-width: 480px) {
+  footer .logo {
+    width: 150px;
+    padding: 15px 10px;
+  }
+
+  footer .container {
+    padding: 0 15px 25px;
+    gap: 25px;
+  }
+
+  footer .container h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  footer .container p,
+  footer .container ul,
+  footer .container li,
+  footer .container div {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .about p {
+    margin-bottom: 15px;
+  }
+
+  .explore ul {
+    line-height: 32px;
+  }
+
+  .socials {
+    margin-top: 12px;
+  }
+
+  .socials i {
+    font-size: 26px;
+    margin: 0 12px;
+  }
+
+  .support p {
+    margin-bottom: 15px;
+  }
+
+  .phone, .mail {
+    margin-bottom: 8px;
+  }
+
+  .rights-reserved {
+    font-size: 12px;
+    padding: 20px 10px;
+    line-height: 1.4;
+  }
+
+  #scrollToTopBtn {
+    bottom: 30px;
+    right: 15px;
+    font-size: 20px;
+    padding: 10px 14px;
+  }
+}
+
+/* 🔽 Very Small Devices (iPhone SE and similar) */
+@media (max-width: 375px) {
+  footer .logo {
+    width: 130px;
+    padding: 12px 8px;
+  }
+
+  footer .container {
+    padding: 0 12px 20px;
+    gap: 20px;
+  }
+
+  footer .container h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  footer .container p,
+  footer .container ul,
+  footer .container li,
+  footer .container div {
+    font-size: 13px;
+  }
+
+  .socials i {
+    font-size: 24px;
+    margin: 0 10px;
+  }
+
+  .rights-reserved {
+    font-size: 11px;
+    padding: 15px 8px;
+  }
+
+  #scrollToTopBtn {
+    bottom: 25px;
+    right: 12px;
+    font-size: 18px;
+    padding: 8px 12px;
+  }
+}
+
+/* 🔽 Landscape Mode for Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  footer .container {
+    grid-template-columns: repeat(2, 1fr);
+    text-align: left;
+  }
+
+  .support {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  footer .logo {
+    width: 160px;
+    padding: 10px 15px;
+  }
+}
+
+/* 🔽 Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .socials i {
+    transition: none;
+  }
+  
+  #scrollToTopBtn {
+    transition: none;
+  }
+}
+
+/* 🔽 High contrast mode support */
+@media (prefers-contrast: high) {
+  footer {
+    border-top: 2px solid #FFFFFF;
+  }
+  
+  .socials i {
+    border: 1px solid transparent;
+  }
+  
+  .socials i:hover {
+    border-color: #FFFFFF;
+  }
+}

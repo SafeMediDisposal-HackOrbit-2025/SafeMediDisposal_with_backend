@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.left-section {
+    flex: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    z-index: 0;
+}
+
+.left-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.logo-img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.right-section {
+    width: 50%;
+    margin-left: 50%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.right-section h2 {
+    font-size: 60px;
+    margin-bottom: 30px;
+    margin-top: 25px;
+    color: #2E3A59;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+}
+
+.form-box {
+    background-color: #f4fbfb;
+    padding: 40px 50px;
+    border-radius: 30px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 601px;
+}
+
+.form label {
+    display: block;
+    padding: 25px;
+    margin-top: 15px;
+    color: #333;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.form input {
+    width: 95%;
+    padding: 25px;
+    margin-top: 5px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background-color: #e2f0f1;
+    font-size: 14px;
+}
+
+.form button {
+    display: block;
+    margin: 50px auto 0; /* Adjusted margin */
+    width: 40%;
+    padding: 15px;
+    background-color: #3cbec9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.form button:hover {
+    background-color: #2aa7b1;
+}
+
+.form p {
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.form a {
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ADD THESE STYLES for the message element */
+#signin-message {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+.success {
+  color: #155724; /* Green */
+  background-color: #d4edda;
+}
+.error {
+  color: #721c24; /* Red */
+  background-color: #f8d7da;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 992px) {
+    .right-section h2 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+    .form-box {
+        padding: 30px;
+    }
+    .form input {
+        padding: 20px;
+    }
+    .form label {
+        font-size: 18px;
+        padding: 15px;
+    }
+    .form button {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-section {
+        display: none;
+    }
+    .right-section {
+        width: 100%;
+        margin-left: 0;
+        padding: 30px 20px;
+        max-height: none;
+    }
+    .right-section h2 {
+        font-size: 38px;
+        margin: 20px 0;
+    }
+    .form-box {
+        width: 100%;
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+    .form input {
+        padding: 15px;
+        font-size: 13px;
+    }
+    .form label {
+        font-size: 16px;
+        padding: 10px 0;
+    }
+    .form button {
+        width: 80%;
+    }
+    .form p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .right-section h2 {
+        font-size: 30px;
+    }
+    .form-box {
+        padding: 20px;
+    }
+    .form label {
+        font-size: 14px;
+    }
+    .form input {
+        padding: 12px;
+        font-size: 13px;
+    }
+    .form button {
+        width: 90%;
+        padding: 12px;
+        font-size: 15px;
+    }
+    .form p {
+        font-size: 14px;
+    }
+}

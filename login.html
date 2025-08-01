@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="left-section">
+      <img src="assets/gloves.jpg" alt="Doctor with Gloves">
+      <a href="home.html">
+        <div class="logo">
+          <img src="assets/logo2.png" alt="SafeMediDisposal Logo" class="logo-img">
+        </div>
+      </a>
+    </div>
+
+    <div class="right-section">
+      <h2>Welcome to<br>SafeMediDisposal !</h2>
+      <div class="form-box">
+        <form class="form" id="login-form">
+          <label for="e-mail">Your Email</label>
+          <input type="email" id="e-mail" name="e-mail" placeholder="Enter Your Email">
+
+          <label>Your Password</label>
+          <input type="password" placeholder="Enter Your Password">
+
+          <button type="submit">Login</button>
+
+          <p id="login-message"></p>
+
+          <p>Do not have an account ? <a href="signin.html"> Signin </a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="login.js"></script>
+</body>
+</html>

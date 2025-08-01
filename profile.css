@@ -1,0 +1,440 @@
+/* Universal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Top Section */
+.top {
+    width: 68%;
+    margin: 100px auto 0; /* Shorthand for margin-top, auto for horizontal centering */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically aligns items in the top bar */
+    padding: 0 20px; /* Add some horizontal padding for smaller screens */
+}
+
+.hello-name {
+    font-weight: bolder;
+    font-family: 'Fraunces', serif; /* Added a fallback font */
+    font-size: 40px;
+    color: #2E3A59;
+    white-space: nowrap; /* Prevent text from wrapping prematurely */
+}
+
+.log-out {
+    background-color: #50C2C9;
+    color: #FDF9EE;
+    width: 178px;
+    height: 41px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer; /* Indicate it's clickable */
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+/* Main container */
+.container {
+    display: flex;
+    min-height: 100vh; /* Use min-height to ensure it takes at least the full viewport height */
+    width: 70%;
+    margin: 20px auto;
+    border-radius: 60px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the container */
+}
+
+/* Left sidebar */
+.sidebar {
+    background-color: #50C2C9;
+    width: 400px;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    padding: 20px; /* Add some padding inside the sidebar */
+}
+
+/* Right content area */
+.content {
+    flex: 1; /* Allows content to take up remaining space */
+    padding: 30px;
+    background-color: #e8e8e8;
+    overflow-y: auto; /* Allows vertical scrolling if content overflows */
+}
+
+/* Profile section */
+.profile-section {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    margin: 40px;
+    margin-bottom: 60px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Add a subtle shadow */
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #555; /* Add some color to the default icon */
+}
+
+.profile-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #2E3A59;
+}
+
+.profile-email {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Edit account section */
+.edit-section {
+    margin-bottom: 30px;
+}
+
+.edit-section h2 {
+    font-size: 30px;
+    text-decoration: underline;
+    margin-bottom: 50px;
+    color: #2E3A59;
+    font-family: 'Fraunces', serif;
+    padding-left: 60px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-input {
+    width: 88%;
+    padding: 30px;
+    margin: 20px;
+    margin-left: 60px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: #CADBDB;
+    font-size: 14px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Inner shadow for input */
+}
+
+.save-btn {
+    background-color: #50C2C9;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 65px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.save-btn:hover {
+    background-color: #35959a;
+}
+
+/* Campaigns section */
+.campaigns-section {
+    margin-top: 100px;
+}
+
+.campaigns-section h2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 45px;
+    color: #2E3A59;
+    text-decoration: underline;
+    font-family: 'Fraunces', serif;
+    padding-left: 60px;
+}
+
+.campaign-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    padding: 0 20px; /* Add padding to the card container */
+}
+
+.campaign-card {
+    width: 280px;
+    background: #e0f6f6;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    flex-shrink: 0; /* Prevent cards from shrinking too much */
+}
+
+.campaign-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.campaign-card h4 {
+    margin: 15px 0 10px;
+    font-weight: 600;
+    color: #2E3A59;
+}
+
+.campaign-card p {
+    font-size: 14px;
+    padding: 0 15px;
+    color: #444;
+}
+
+.campaign-card button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #4ac6cb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.campaign-card button:hover {
+    background-color: #35959a;
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* For screens smaller than 1200px (e.g., smaller desktops, large tablets) */
+@media (max-width: 1200px) {
+    .container {
+        width: 90%; /* Increase container width to take more space */
+        border-radius: 30px; /* Slightly smaller border-radius */
+    }
+
+    .top {
+        width: 90%;
+        margin-top: 50px; /* Adjust top margin */
+    }
+
+    .hello-name {
+        font-size: 32px; /* Reduce font size */
+    }
+
+    .sidebar {
+        width: 300px; /* Reduce sidebar width */
+    }
+
+    .content {
+        padding: 20px; /* Reduce content padding */
+    }
+
+    .profile-section {
+        margin: 20px; /* Adjust profile section margin */
+        padding: 30px;
+    }
+
+    .edit-section h2,
+    .campaigns-section h2 {
+        font-size: 26px; /* Reduce heading font size */
+        padding-left: 30px; /* Adjust padding */
+        margin-bottom: 30px;
+    }
+
+    .form-input {
+        width: 90%; /* Adjust input width */
+        margin-left: 30px; /* Adjust margin */
+        padding: 20px;
+    }
+
+    .save-btn {
+        margin-left: 35px; /* Adjust button margin */
+    }
+}
+
+/* For screens smaller than 992px (e.g., tablets) */
+@media (max-width: 992px) {
+    .top {
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-start; /* Align items to the start */
+        margin-top: 30px;
+    }
+
+    .log-out {
+        margin-top: 15px; /* Add space between name and logout button */
+        width: 150px;
+        height: 35px;
+    }
+
+    .container {
+        flex-direction: column; /* Stack sidebar and content vertically */
+        width: 95%; /* Take almost full width */
+        margin-top: 20px;
+        border-radius: 20px;
+        min-height: auto; /* Allow height to adjust based on content */
+    }
+
+    .sidebar {
+        width: 100%; /* Sidebar takes full width */
+        min-height: auto; /* Height adjusts to content */
+        padding-bottom: 0; /* No bottom padding */
+    }
+
+    .profile-section {
+        margin: 20px auto; /* Center profile section horizontally */
+        width: 90%; /* Occupy more width */
+    }
+
+    .content {
+        padding: 20px 15px; /* Smaller padding */
+    }
+
+    .edit-section h2,
+    .campaigns-section h2 {
+        font-size: 24px;
+        padding-left: 20px;
+        margin-bottom: 25px;
+    }
+
+    .form-input {
+        width: 95%;
+        margin-left: 20px;
+        padding: 18px;
+    }
+
+    .save-btn {
+        margin-left: 25px;
+        width: 150px; /* Make save button a bit wider */
+        padding: 12px 20px;
+    }
+
+    .campaign-cards {
+        justify-content: center; /* Center cards when they wrap */
+    }
+
+    .campaign-card {
+        width: 45%; /* Allow two cards per row on tablets */
+        max-width: 300px; /* Limit max width for larger tablets */
+    }
+}
+
+/* For screens smaller than 768px (e.g., larger mobile phones) */
+@media (max-width: 768px) {
+    .top {
+        align-items: center; /* Center align items for mobile */
+        padding: 0 15px;
+    }
+
+    .hello-name {
+        font-size: 28px;
+    }
+
+    .log-out {
+        width: 120px;
+        height: 30px;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .container {
+        width: 100%; /* Full width on mobile */
+        border-radius: 0; /* Remove border-radius for a full-bleed look */
+        margin-top: 0; /* Remove top margin */
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .profile-section {
+        margin: 15px auto;
+        padding: 25px;
+        width: 95%;
+    }
+
+    .profile-pic {
+        width: 70px;
+        height: 70px;
+        font-size: 25px;
+    }
+
+    .profile-name {
+        font-size: 16px;
+    }
+
+    .profile-email {
+        font-size: 13px;
+    }
+
+    .content {
+        padding: 15px 10px;
+    }
+
+    .edit-section h2,
+    .campaigns-section h2 {
+        font-size: 22px;
+        padding-left: 15px;
+        margin-bottom: 20px;
+        text-align: center; /* Center headings for smaller screens */
+        text-decoration: none; /* Remove underline for cleaner look */
+    }
+    
+    .form-input {
+        width: 98%;
+        margin-left: 1%;
+        padding: 15px;
+        font-size: 13px;
+    }
+
+    .save-btn {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 15px;
+        padding: 12px;
+    }
+
+    .campaign-cards {
+        flex-direction: column; /* Stack cards vertically on mobile */
+        align-items: center; /* Center individual cards */
+        padding: 0 10px;
+    }
+
+    .campaign-card {
+        width: 90%; /* Cards take up more width */
+        max-width: 350px; /* Limit max width for larger phones */
+        margin-bottom: 20px;
+    }
+}
+
+/* For screens smaller than 480px (e.g., smaller mobile phones) */
+@media (max-width: 480px) {
+    .hello-name {
+        font-size: 24px;
+    }
+
+    .log-out {
+        width: 100px;
+        height: 28px;
+        font-size: 13px;
+    }
+
+    .profile-section {
+        padding: 20px;
+    }
+
+    .edit-section h2,
+    .campaigns-section h2 {
+        font-size: 20px;
+    }
+}
