@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - SafeMediDisposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #50c2c9;
+            --primary-dark: #028090;
+            --secondary-color: #F0F3F4;
+            --background-color: #CADBDB;
+            --text-color: #2C3E50;
+            --text-light: #808B96;
+            --white-color: #FFFFFF;
+            --card-shadow: rgba(0, 0, 0, 0.05);
+            --success-color: #27AE60;
+            --danger-color: #E74C3C;
+            --warning-color: #F39C12;
+            --dark-card-background: #171821;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* App Container Layout */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: var(--primary-color);
+            color: var(--white-color);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+      padding: 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .sidebar-header .logo {
+      max-height: 70px;
+      width: auto;
+      margin-right: 0.5rem;
+    }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-nav a.active, .sidebar-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-nav a.active {
+            font-weight: 600;
+        }
+
+        .sidebar-nav a i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile i {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-right: 1rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .user-profile i:hover {
+            color: var(--primary-color);
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: var(--white-color);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--card-shadow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            min-width: 120px;
+        }
+
+        .filter-group label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.4rem 0.6rem;
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            background: var(--white-color);
+            transition: border-color 0.3s;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-history {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-history input {
+            width: 100%;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(80, 194, 201, 0.1);
+        }
+
+        /* History Grid */
+        .history-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--white-color);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* History Timeline */
+        .timeline-container {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: var(--white-color);
+            border-radius: 8px;
+            padding: 1.2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--status-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.2rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--status-color);
+            border: 3px solid var(--white-color);
+            box-shadow: 0 0 0 2px var(--secondary-color);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-id {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .timeline-meta {
+            text-align: right;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        .status-completed {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-pending {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-cancelled {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+        }
+
+        .timeline-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        /* Statistics Summary */
+        .stats-summary {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+
+        .stat-card {
+            background: var(--dark-card-background);
+            color: var(--white-color);
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .stat-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .stat-change {
+            font-size: 0.7rem;
+            margin-top: 0.2rem;
+            opacity: 0.8;
+        }
+
+        .positive-change {
+            color: var(--success-color);
+        }
+
+        .negative-change {
+            color: var(--danger-color);
+        }
+
+        /* Monthly Overview */
+        .monthly-overview {
+            grid-column: 1 / -1;
+        }
+
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .month-card {
+            background: var(--secondary-color);
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .month-card:hover {
+            background: rgba(80, 194, 201, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .month-name {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .month-total {
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .month-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .month-stat {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .month-stat strong {
+            color: var(--text-color);
+        }
+
+        /* Export Controls */
+        .export-section {
+            background: var(--white-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--card-shadow);
+            margin-top: 2rem;
+        }
+
+        .export-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .export-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .export-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            margin-top: 1.5rem;
+            background: var(--white-color);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--card-shadow);
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .chart-controls .btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        #trendsChart {
+            max-height: 200px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--white-color);
+            padding: 2rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* Table View */
+        .table-view {
+            display: none;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .history-table th {
+            background: var(--secondary-color);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .history-table tbody tr:hover {
+            background: rgba(80, 194, 201, 0.05);
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .view-toggle-btn {
+            padding: 0.5rem 1rem;
+            background: var(--secondary-color);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .view-toggle-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Waste Type Indicators */
+        .waste-type-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .waste-sharps { background-color: #E74C3C; }
+        .waste-pharmaceutical { background-color: #3498DB; }
+        .waste-pathological { background-color: #9B59B6; }
+        .waste-contaminated { background-color: #F39C12; }
+
+        /* Color assignments for status */
+        .timeline-item[data-status="completed"] { --status-color: var(--success-color); }
+        .timeline-item[data-status="pending"] { --status-color: var(--warning-color); }
+        .timeline-item[data-status="cancelled"] { --status-color: var(--danger-color); }
+
+        /* Animation for new items */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline-item { animation: fadeIn 0.5s ease-out; }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .history-grid { grid-template-columns: 1fr; }
+            .stats-summary { grid-template-columns: repeat(2, 1fr); }
+            .timeline-details { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle { display: block; }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 1000;
+                transform: translateX(-100%);
+                width: 280px;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            }
+
+            .sidebar.mobile-open { transform: translateX(0); }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+                padding-top: 4rem;
+            }
+
+            .page-title { font-size: 1.5rem; }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .filter-group { min-width: auto; }
+            .search-history { min-width: auto; }
+
+            .filter-actions {
+                margin-left: 0;
+                justify-content: stretch;
+                flex-direction: column;
+            }
+
+            .main-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .user-profile { align-self: flex-end; }
+            .stats-summary { grid-template-columns: 1fr; }
+            .months-grid { grid-template-columns: 1fr; }
+            .export-options, .export-actions { flex-direction: column; }
+
+            .timeline { padding-left: 1.5rem; }
+            .timeline::before { left: 8px; }
+            .timeline-item::before {
+                left: -1.8rem;
+                width: 10px;
+                height: 10px;
+            }
+
+            .timeline-item { padding: 1rem; }
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .timeline-meta {
+                text-align: left;
+                width: 100%;
+            }
+            .timeline-details {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.6rem;
+            }
+
+            .view-toggle { flex-direction: column; }
+            .view-toggle-btn { min-width: auto; }
+            .chart-controls { flex-direction: column; }
+            .chart-controls .btn { flex: 1; }
+            .modal-content { padding: 1.5rem; margin: 0.5rem; }
+
+            .history-table { font-size: 0.8rem; }
+            .history-table th, .history-table td { padding: 0.5rem 0.25rem; }
+            .table-view > div {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content { padding: 0.5rem; padding-top: 4rem; }
+            .card { padding: 0.8rem; }
+            .timeline-details, .month-stats { grid-template-columns: 1fr; }
+            .stat-card { padding: 1rem 0.5rem; }
+            .stat-number { font-size: 1.2rem; }
+            .export-section, .chart-container, .filter-bar, .modal-content { padding: 1rem; }
+            .sidebar { width: 100vw; }
+            .page-title { font-size: 1.3rem; }
+            .btn, .view-toggle-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        }
+
+        /* Touch improvements */
+        @media (hover: none) {
+            .timeline-item:hover, .stat-card:hover, .month-card:hover { transform: none; }
+            .timeline-item:active, .stat-card:active, .month-card:active { transform: scale(0.98); }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+               <img src="assets/whitelogo-Photoroom.jpg" alt="HealthWaste Logo" class="logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+                    <li><a href="profile_1.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                    <li><a href="scanner.html"><i class="fa-solid fa-qrcode"></i> QR Code</a></li>
+                    <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
+                    <li><a href="redemption.html"><i class="fa-solid fa-trophy"></i> Results</a></li>
+                    <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+                    <li><a href="message.html"><i class="fa-solid fa-message"></i> Message</a></li>
+                    <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="#" class="active"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <h1 class="page-title">Disposal History</h1>
+                <div class="user-profile">
+                    <i class="fa-regular fa-bell"></i>
+                    <i class="fa-solid fa-user-circle"></i>
+                </div>
+            </header>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="date-from">From Date</label>
+                    <input type="date" id="date-from" name="date-from">
+                </div>
+                <div class="filter-group">
+                    <label for="date-to">To Date</label>
+                    <input type="date" id="date-to" name="date-to">
+                </div>
+                <div class="filter-group">
+                    <label for="status-filter">Status</label>
+                    <select id="status-filter" name="status">
+                        <option value="">All Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="waste-type">Waste Type</label>
+                    <select id="waste-type" name="waste-type">
+                        <option value="">All Types</option>
+                        <option value="sharps">Sharps</option>
+                        <option value="pharmaceutical">Pharmaceutical</option>
+                        <option value="pathological">Pathological</option>
+                        <option value="contaminated">Contaminated</option>
+                    </select>
+                </div>
+                <div class="filter-group search-history">
+                    <label for="search">Search</label>
+                    <input type="text" id="search" placeholder="Search by ID, location, or notes...">
+                </div>
+                <div class="filter-actions">
+                    <button class="btn btn-secondary" onclick="clearFilters()">
+                        <i class="fa-solid fa-times"></i> Clear
+                    </button>
+                    <button class="btn btn-primary" onclick="applyFilters()">
+                        <i class="fa-solid fa-search"></i> Filter
+                    </button>
+                </div>
+            </div>
+
+            <!-- View Toggle -->
+            <div class="view-toggle">
+                <button class="view-toggle-btn active" onclick="toggleView('timeline')">
+                    <i class="fa-solid fa-timeline"></i> Timeline View
+                </button>
+                <button class="view-toggle-btn" onclick="toggleView('table')">
+                    <i class="fa-solid fa-table"></i> Table View
+                </button>
+            </div>
+
+            <!-- History Content -->
+            <div class="history-grid">
+                <!-- Timeline View -->
+                <div class="card timeline-view">
+                    <h3 class="card-title">
+                        <i class="fa-solid fa-timeline"></i>
+                        Recent Activity
+                    </h3>
+                    <div class="timeline-container">
+                        <div class="timeline">
+                            <div class="timeline-item" data-status="completed">
+                                <div class="timeline-header">
+                                    <div>
+                                        <div class="timeline-title">Medical Waste Pickup</div>
+                                        <div class="timeline-id">ID: MWD-2025-001234</div>
+                                    </div>
+                                    <div class="timeline-meta">
+                                        <div class="timeline-date">Aug 20, 2025 - 2:30 PM</div>
+                                        <span class="status-badge status-completed">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Type</span>
+                                        <span class="detail-value"><span class="waste-type-indicator waste-sharps"></span>Sharps & Pharmaceutical</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Weight</span>
+                                        <span class="detail-value">12.5 kg</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Location</span>
+                                        <span class="detail-value">Main Hospital Ward</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Points Earned</span>
+                                        <span class="detail-value">+125 pts</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item" data-status="completed">
+                                <div class="timeline-header">
+                                    <div>
+                                        <div class="timeline-title">Pathological Waste Disposal</div>
+                                        <div class="timeline-id">ID: MWD-2025-001233</div>
+                                    </div>
+                                    <div class="timeline-meta">
+                                        <div class="timeline-date">Aug 18, 2025 - 10:15 AM</div>
+                                        <span class="status-badge status-completed">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Type</span>
+                                        <span class="detail-value"><span class="waste-type-indicator waste-pathological"></span>Pathological</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Weight</span>
+                                        <span class="detail-value">8.2 kg</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Location</span>
+                                        <span class="detail-value">Laboratory</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Points Earned</span>
+                                        <span class="detail-value">+82 pts</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item" data-status="pending">
+                                <div class="timeline-header">
+                                    <div>
+                                        <div class="timeline-title">Scheduled Pickup</div>
+                                        <div class="timeline-id">ID: MWD-2025-001235</div>
+                                    </div>
+                                    <div class="timeline-meta">
+                                        <div class="timeline-date">Aug 24, 2025 - 9:00 AM</div>
+                                        <span class="status-badge status-pending">Scheduled</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Type</span>
+                                        <span class="detail-value"><span class="waste-type-indicator waste-contaminated"></span>Mixed Waste</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Estimated Weight</span>
+                                        <span class="detail-value">15.0 kg</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Location</span>
+                                        <span class="detail-value">Emergency Ward</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Expected Points</span>
+                                        <span class="detail-value">~150 pts</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item" data-status="completed">
+                                <div class="timeline-header">
+                                    <div>
+                                        <div class="timeline-title">Pharmaceutical Waste</div>
+                                        <div class="timeline-id">ID: MWD-2025-001232</div>
+                                    </div>
+                                    <div class="timeline-meta">
+                                        <div class="timeline-date">Aug 15, 2025 - 3:45 PM</div>
+                                        <span class="status-badge status-completed">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Type</span>
+                                        <span class="detail-value"><span class="waste-type-indicator waste-pharmaceutical"></span>Expired Medications</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Weight</span>
+                                        <span class="detail-value">6.8 kg</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Location</span>
+                                        <span class="detail-value">Pharmacy</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Points Earned</span>
+                                        <span class="detail-value">+68 pts</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item" data-status="cancelled">
+                                <div class="timeline-header">
+                                    <div>
+                                        <div class="timeline-title">Cancelled Pickup</div>
+                                        <div class="timeline-id">ID: MWD-2025-001231</div>
+                                    </div>
+                                    <div class="timeline-meta">
+                                        <div class="timeline-date">Aug 12, 2025 - 11:00 AM</div>
+                                        <span class="status-badge status-cancelled">Cancelled</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Type</span>
+                                        <span class="detail-value"><span class="waste-type-indicator waste-contaminated"></span>Contaminated Materials</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Reason</span>
+                                        <span class="detail-value">Access Issues</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Location</span>
+                                        <span class="detail-value">ICU Ward</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Status</span>
+                                        <span class="detail-value">Rescheduled</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table View (Hidden by default) -->
+                <div class="card table-view">
+                    <h3 class="card-title">
+                        <i class="fa-solid fa-table"></i>
+                        History Table
+                    </h3>
+                    <div style="overflow-x: auto;">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Weight</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>MWD-2025-001234</td>
+                                    <td>Aug 20, 2025</td>
+                                    <td><span class="waste-type-indicator waste-sharps"></span>Sharps & Pharmaceutical</td>
+                                    <td>12.5 kg</td>
+                                    <td>Main Hospital Ward</td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td>+125</td>
+                                </tr>
+                                <tr>
+                                    <td>MWD-2025-001233</td>
+                                    <td>Aug 18, 2025</td>
+                                    <td><span class="waste-type-indicator waste-pathological"></span>Pathological</td>
+                                    <td>8.2 kg</td>
+                                    <td>Laboratory</td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td>+82</td>
+                                </tr>
+                                <tr>
+                                    <td>MWD-2025-001235</td>
+                                    <td>Aug 24, 2025</td>
+                                    <td><span class="waste-type-indicator waste-contaminated"></span>Mixed Waste</td>
+                                    <td>15.0 kg</td>
+                                    <td>Emergency Ward</td>
+                                    <td><span class="status-badge status-pending">Scheduled</span></td>
+                                    <td>~150</td>
+                                </tr>
+                                <tr>
+                                    <td>MWD-2025-001232</td>
+                                    <td>Aug 15, 2025</td>
+                                    <td><span class="waste-type-indicator waste-pharmaceutical"></span>Expired Medications</td>
+                                    <td>6.8 kg</td>
+                                    <td>Pharmacy</td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td>+68</td>
+                                </tr>
+                                <tr>
+                                    <td>MWD-2025-001231</td>
+                                    <td>Aug 12, 2025</td>
+                                    <td><span class="waste-type-indicator waste-contaminated"></span>Contaminated Materials</td>
+                                    <td>-</td>
+                                    <td>ICU Ward</td>
+                                    <td><span class="status-badge status-cancelled">Cancelled</span></td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Statistics Summary -->
+                <div class="stats-summary">
+                    <div class="stat-card" onclick="showDetail('pickups')">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-number">47</div>
+                        <div class="stat-label">Total Pickups</div>
+                        <div class="stat-change positive-change">+8 this month</div>
+                    </div>
+                    <div class="stat-card" onclick="showDetail('weight')">
+                        <div class="stat-icon">⚖</div>
+                        <div class="stat-number">342.5</div>
+                        <div class="stat-label">Total Weight (kg)</div>
+                        <div class="stat-change positive-change">+62.3kg this month</div>
+                    </div>
+                    <div class="stat-card" onclick="showDetail('points')">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-number">3,425</div>
+                        <div class="stat-label">Points Earned</div>
+                        <div class="stat-change positive-change">+623 this month</div>
+                    </div>
+                    <div class="stat-card" onclick="showDetail('success')">
+                        <div class="stat-icon">♻</div>
+                        <div class="stat-number">98.3%</div>
+                        <div class="stat-label">Success Rate</div>
+                        <div class="stat-change positive-change">+1.2% improvement</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monthly Overview -->
+            <div class="card monthly-overview">
+                <h3 class="card-title">
+                    <i class="fa-solid fa-calendar-alt"></i>
+                    Monthly Overview
+                </h3>
+                <div class="months-grid">
+                    <div class="month-card" onclick="showMonthDetail('august')">
+                        <div class="month-header">
+                            <span class="month-name">August 2025</span>
+                            <span class="month-total">89.2 kg</span>
+                        </div>
+                        <div class="month-stats">
+                            <div class="month-stat">Pickups: <strong>12</strong></div>
+                            <div class="month-stat">Points: <strong>892</strong></div>
+                            <div class="month-stat">Success: <strong>100%</strong></div>
+                            <div class="month-stat">Avg Weight: <strong>7.4 kg</strong></div>
+                        </div>
+                    </div>
+                    <div class="month-card" onclick="showMonthDetail('july')">
+                        <div class="month-header">
+                            <span class="month-name">July 2025</span>
+                            <span class="month-total">76.8 kg</span>
+                        </div>
+                        <div class="month-stats">
+                            <div class="month-stat">Pickups: <strong>10</strong></div>
+                            <div class="month-stat">Points: <strong>768</strong></div>
+                            <div class="month-stat">Success: <strong>95%</strong></div>
+                            <div class="month-stat">Avg Weight: <strong>7.7 kg</strong></div>
+                        </div>
+                    </div>
+                    <div class="month-card" onclick="showMonthDetail('june')">
+                        <div class="month-header">
+                            <span class="month-name">June 2025</span>
+                            <span class="month-total">68.5 kg</span>
+                        </div>
+                        <div class="month-stats">
+                            <div class="month-stat">Pickups: <strong>9</strong></div>
+                            <div class="month-stat">Points: <strong>685</strong></div>
+                            <div class="month-stat">Success: <strong>97%</strong></div>
+                            <div class="month-stat">Avg Weight: <strong>7.6 kg</strong></div>
+                        </div>
+                    </div>
+                    <div class="month-card" onclick="showMonthDetail('may')">
+                        <div class="month-header">
+                            <span class="month-name">May 2025</span>
+                            <span class="month-total">72.3 kg</span>
+                        </div>
+                        <div class="month-stats">
+                            <div class="month-stat">Pickups: <strong>8</strong></div>
+                            <div class="month-stat">Points: <strong>723</strong></div>
+                            <div class="month-stat">Success: <strong>96%</strong></div>
+                            <div class="month-stat">Avg Weight: <strong>9.0 kg</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Container -->
+            <div class="chart-container">
+                <h3 class="card-title">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Waste Disposal Trends
+                </h3>
+                <div class="chart-controls">
+                    <button class="btn btn-secondary" onclick="updateChart('weight')" id="weightBtn">Weight</button>
+                    <button class="btn btn-secondary" onclick="updateChart('pickups')" id="pickupsBtn">Pickups</button>
+                    <button class="btn btn-secondary" onclick="updateChart('types')" id="typesBtn">Types</button>
+                </div>
+                <canvas id="trendsChart" width="400" height="80"></canvas>
+            </div>
+
+            <!-- Export Section -->
+            <div class="export-section">
+                <div class="export-header">
+                    <h3 class="card-title">
+                        <i class="fa-solid fa-download"></i>
+                        Export History
+                    </h3>
+                </div>
+                <div class="export-options">
+                    <div class="filter-group">
+                        <label for="export-format">Format</label>
+                        <select id="export-format" name="export-format">
+                            <option value="csv">CSV</option>
+                            <option value="pdf">PDF</option>
+                            <option value="excel">Excel</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="export-range">Date Range</label>
+                        <select id="export-range" name="export-range">
+                            <option value="last-month">Last Month</option>
+                            <option value="last-3-months">Last 3 Months</option>
+                            <option value="last-6-months">Last 6 Months</option>
+                            <option value="last-year">Last Year</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="export-data">Include Data</label>
+                        <select id="export-data" name="export-data">
+                            <option value="all">All Records</option>
+                            <option value="completed">Completed Only</option>
+                            <option value="summary">Summary Only</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="export-actions">
+                    <button class="btn btn-secondary" onclick="previewExport()">
+                        <i class="fa-solid fa-eye"></i> Preview
+                    </button>
+                    <button class="btn btn-primary" onclick="exportData()">
+                        <i class="fa-solid fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Detailed Views -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Details</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading" id="loadingOverlay" style="display: none;">
+        <i class="fa-solid fa-spinner"></i>
+        <p>Loading data...</p>
+    </div>
+
+    <script>
+        let trendsChart = null;
+        let isMobileMenuOpen = false;
+
+        // Sample data for charts
+        const chartData = {
+            weight: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                datasets: [{
+                    label: 'Weight (kg)',
+                    data: [45.2, 52.8, 48.1, 62.3, 72.3, 68.5, 76.8, 89.2],
+                    borderColor: '#50c2c9',
+                    backgroundColor: 'rgba(80, 194, 201, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            pickups: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                datasets: [{
+                    label: 'Number of Pickups',
+                    data: [6, 7, 5, 8, 8, 9, 10, 12],
+                    borderColor: '#028090',
+                    backgroundColor: 'rgba(2, 128, 144, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            types: {
+                labels: ['Sharps', 'Pharmaceutical', 'Pathological', 'Contaminated'],
+                datasets: [{
+                    label: 'Weight Distribution (kg)',
+                    data: [156.2, 98.7, 54.3, 33.3],
+                    backgroundColor: [
+                        '#E74C3C',
+                        '#3498DB', 
+                        '#9B59B6',
+                        '#F39C12'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#FFFFFF'
+                }]
+            }
+        };
+
+        // Initialize chart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            const lastMonth = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            
+            document.getElementById('date-to').value = today;
+            document.getElementById('date-from').value = lastMonth;
+            
+            // Initialize chart with weight trends
+            initializeChart();
+            updateChart('weight');
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            isMobileMenuOpen = !isMobileMenuOpen;
+            
+            if (isMobileMenuOpen) {
+                sidebar.classList.add('mobile-open');
+            } else {
+                sidebar.classList.remove('mobile-open');
+            }
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (isMobileMenuOpen && !sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        function initializeChart() {
+            const ctx = document.getElementById('trendsChart').getContext('2d');
+            
+            trendsChart = new Chart(ctx, {
+                type: 'line',
+                data: chartData.weight,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+        }
+
+        function updateChart(type) {
+            // Update button states
+            document.querySelectorAll('.chart-controls .btn').forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-secondary');
+            });
+            
+            if (type === 'weight') {
+                document.getElementById('weightBtn').classList.remove('btn-secondary');
+                document.getElementById('weightBtn').classList.add('btn-primary');
+                trendsChart.config.type = 'line';
+                trendsChart.data = chartData.weight;
+                trendsChart.options.scales = {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0,0,0,0.1)' }
+                    },
+                    x: {
+                        grid: { color: 'rgba(0,0,0,0.1)' }
+                    }
+                };
+            } else if (type === 'pickups') {
+                document.getElementById('pickupsBtn').classList.remove('btn-secondary');
+                document.getElementById('pickupsBtn').classList.add('btn-primary');
+                trendsChart.config.type = 'bar';
+                trendsChart.data = chartData.pickups;
+                trendsChart.options.scales = {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0,0,0,0.1)' }
+                    },
+                    x: {
+                        grid: { color: 'rgba(0,0,0,0.1)' }
+                    }
+                };
+            } else if (type === 'types') {
+                document.getElementById('typesBtn').classList.remove('btn-secondary');
+                document.getElementById('typesBtn').classList.add('btn-primary');
+                trendsChart.config.type = 'doughnut';
+                trendsChart.data = chartData.types;
+                trendsChart.options.scales = {};
+            }
+            
+            trendsChart.update('active');
+        }
+
+        // Toggle between timeline and table view
+        function toggleView(viewType) {
+            const timelineView = document.querySelector('.timeline-view');
+            const tableView = document.querySelector('.table-view');
+            const buttons = document.querySelectorAll('.view-toggle-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (viewType === 'timeline') {
+                timelineView.style.display = 'block';
+                tableView.style.display = 'none';
+                buttons[0].classList.add('active');
+            } else {
+                timelineView.style.display = 'none';
+                tableView.style.display = 'block';
+                buttons[1].classList.add('active');
+            }
+        }
+
+        // Filter functions
+        function clearFilters() {
+            document.getElementById('date-from').value = '';
+            document.getElementById('date-to').value = '';
+            document.getElementById('status-filter').value = '';
+            document.getElementById('waste-type').value = '';
+            document.getElementById('search').value = '';
+        }
+
+        function applyFilters() {
+            const filters = {
+                dateFrom: document.getElementById('date-from').value,
+                dateTo: document.getElementById('date-to').value,
+                status: document.getElementById('status-filter').value,
+                wasteType: document.getElementById('waste-type').value,
+                search: document.getElementById('search').value
+            };
+            
+            console.log('Applying filters:', filters);
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+            }, 1000);
+        }
+
+        // Modal functions
+        function showDetail(type) {
+            const modal = document.getElementById('detailModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            let content = '';
+            
+            switch(type) {
+                case 'pickups':
+                    title.textContent = 'Total Pickups Details';
+                    content = `
+                        <div class="detail-breakdown">
+                            <h4>Pickup Breakdown</h4>
+                            <p><strong>This Month:</strong> 8 pickups (+14% from last month)</p>
+                            <p><strong>Average per Week:</strong> 2.7 pickups</p>
+                            <p><strong>Most Active Day:</strong> Wednesdays (18 pickups total)</p>
+                            <p><strong>Peak Hours:</strong> 10 AM - 2 PM</p>
+                        </div>
+                    `;
+                    break;
+                case 'weight':
+                    title.textContent = 'Total Weight Details';
+                    content = `
+                        <div class="detail-breakdown">
+                            <h4>Weight Breakdown</h4>
+                            <p><strong>Sharps:</strong> 156.2 kg (45.6%)</p>
+                            <p><strong>Pharmaceutical:</strong> 98.7 kg (28.8%)</p>
+                            <p><strong>Pathological:</strong> 54.3 kg (15.9%)</p>
+                            <p><strong>Contaminated:</strong> 33.3 kg (9.7%)</p>
+                        </div>
+                    `;
+                    break;
+                case 'points':
+                    title.textContent = 'Points Earned Details';
+                    content = `
+                        <div class="detail-breakdown">
+                            <h4>Points Breakdown</h4>
+                            <p><strong>Base Points:</strong> 2,890 pts</p>
+                            <p><strong>Bonus Points:</strong> 425 pts</p>
+                            <p><strong>Streak Bonus:</strong> 110 pts</p>
+                            <p><strong>Next Milestone:</strong> 4,000 pts (575 pts to go)</p>
+                        </div>
+                    `;
+                    break;
+                case 'success':
+                    title.textContent = 'Success Rate Details';
+                    content = `
+                        <div class="detail-breakdown">
+                            <h4>Success Rate Analysis</h4>
+                            <p><strong>Completed:</strong> 46 pickups (97.9%)</p>
+                            <p><strong>Cancelled:</strong> 1 pickup (2.1%)</p>
+                            <p><strong>On-Time Rate:</strong> 95.7%</p>
+                            <p><strong>Quality Score:</strong> 98.3%</p>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            body.innerHTML = content;
+            modal.style.display = 'flex';
+        }
+
+        function showMonthDetail(month) {
+            const modal = document.getElementById('detailModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            const monthData = {
+                august: { name: 'August 2025', pickups: 12, weight: '89.2 kg', points: 892, success: '100%' },
+                july: { name: 'July 2025', pickups: 10, weight: '76.8 kg', points: 768, success: '95%' },
+                june: { name: 'June 2025', pickups: 9, weight: '68.5 kg', points: 685, success: '97%' },
+                may: { name: 'May 2025', pickups: 8, weight: '72.3 kg', points: 723, success: '96%' }
+            };
+            
+            const data = monthData[month];
+            
+            title.textContent = `${data.name} Details`;
+            body.innerHTML = `
+                <div class="detail-breakdown">
+                    <h4>Monthly Summary</h4>
+                    <p><strong>Total Pickups:</strong> ${data.pickups}</p>
+                    <p><strong>Total Weight:</strong> ${data.weight}</p>
+                    <p><strong>Points Earned:</strong> ${data.points}</p>
+                    <p><strong>Success Rate:</strong> ${data.success}</p>
+                    <hr style="margin: 1rem 0;">
+                    <h4>Weekly Breakdown</h4>
+                    <p><strong>Week 1:</strong> 3 pickups, 22.1 kg</p>
+                    <p><strong>Week 2:</strong> 2 pickups, 18.9 kg</p>
+                    <p><strong>Week 3:</strong> 4 pickups, 28.5 kg</p>
+                    <p><strong>Week 4:</strong> 3 pickups, 19.7 kg</p>
+                </div>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+
+        // Export functions
+        function previewExport() {
+            const format = document.getElementById('export-format').value;
+            const range = document.getElementById('export-range').value;
+            const data = document.getElementById('export-data').value;
+            
+            alert(`Preview Export:\nFormat: ${format.toUpperCase()}\nRange: ${range}\nData: ${data}`);
+        }
+
+        function exportData() {
+            const format = document.getElementById('export-format').value;
+            const range = document.getElementById('export-range').value;
+            const data = document.getElementById('export-data').value;
+            
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+                alert(`Export completed!\nFormat: ${format.toUpperCase()}\nRange: ${range}\nData: ${data}\n\nFile downloaded to your device.`);
+            }, 2000);
+        }
+
+        // Loading functions
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('detailModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Timeline item click handler
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const id = this.querySelector('.timeline-id').textContent;
+                const title = this.querySelector('.timeline-title').textContent;
+                const status = this.getAttribute('data-status');
+                
+                const modal = document.getElementById('detailModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalBody = document.getElementById('modalBody');
+                
+                modalTitle.textContent = `${title} - ${id}`;
+                modalBody.innerHTML = `
+                    <div class="detail-breakdown">
+                        <h4>Pickup Details</h4>
+                        <p><strong>Status:</strong> ${status.charAt(0).toUpperCase() + status.slice(1)}</p>
+                        <p><strong>Tracking ID:</strong> ${id}</p>
+                        <p><strong>Description:</strong> ${title}</p>
+                        <hr style="margin: 1rem 0;">
+                        <h4>Additional Information</h4>
+                        <p>Complete details about this specific waste pickup would be displayed here, including collection team information, disposal method, certifications, and any special handling requirements.</p>
+                    </div>
+                `;
+                
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Search functionality
+        document.getElementById('search').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            timelineItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Resize event listener for chart
+        window.addEventListener('resize', function() {
+            if (trendsChart) {
+                trendsChart.resize();
+            }
+        });
+    </script>
+</body>
+</html>
