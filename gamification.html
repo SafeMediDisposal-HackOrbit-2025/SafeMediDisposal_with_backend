@@ -12,78 +12,101 @@
     :root {
       --primary-color: #50c2c9;
       --primary-dark: #028090;
-      --secondary-color: #DFE3E8;
-      --secondary-color-1: #CADBDB;
-      --text-color: #2C3E50;
+      --secondary-color: #F0F3F4;
+      --background-color: #CADBDB;
+      --text-color: #028090;
       --text-light: #808B96;
-      --white: #FFFFFF;
+      --white-color: #FFFFFF;
+      --card-shadow: rgba(0, 0, 0, 0.05);
       --success-color: #27AE60;
+      --danger-color: #E74C3C;
       --warning-color: #F39C12;
+      --info-color: #3498DB;
+      --dark-card-background: #171821;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: var(--secondary-color);
+      background-color: var(--background-color);
       color: var(--text-color);
+      font-size: 16px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
     .app-container {
       display: flex;
-      min-height: 100vh;
+      height: 100vh;
     }
 
+    /* --- SIDEBAR STYLES (Updated to match dashboard) --- */
     .sidebar {
-      width: 260px;
-      background-color: var(--primary-color);
-      color: var(--white);
-      padding: 2rem 1.5rem;
+      width: 250px;
+      flex-shrink: 0;
+      background: var(--primary-color);
+      color: var(--white-color);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
     }
 
     .sidebar-header {
-      text-align: center;
+      display: flex;
+      align-items: center;
       margin-bottom: 3rem;
+      padding: 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
     }
 
     .sidebar-header .logo {
-      max-width: 120px;
-      border-radius: 50%;
+      max-height: 70px;
+      width: auto;
+      margin-right: 0.5rem;
     }
 
     .sidebar-nav ul {
       list-style: none;
     }
 
-    .sidebar-nav ul li {
-      margin-bottom: 1.5rem;
-    }
-
-    .sidebar-nav ul li a {
-      text-decoration: none;
-      color: var(--white);
-      font-weight: 500;
+    .sidebar-nav a {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      transition: all 0.3s;
-    }
-
-    .sidebar-nav ul li a:hover,
-    .sidebar-nav ul li a.active {
-      color: var(--primary-dark);
-      background-color: var(--white);
-      padding: 0.5rem 1rem;
+      padding: 0.8rem 1rem;
       border-radius: 8px;
+      margin: 0.5rem 0;
+      transition: background-color 0.3s;
     }
 
+    .sidebar-nav a.active, .sidebar-nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-nav a.active {
+      font-weight: 600;
+    }
+
+    .sidebar-nav a i {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* --- MAIN CONTENT --- */
     .main-content {
       flex-grow: 1;
       padding: 2rem;
+      overflow-y: auto;
     }
 
     .main-header {
@@ -95,77 +118,113 @@
 
     .page-title {
       font-size: 2rem;
-      font-weight: 600;
+      font-weight: 700;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .user-profile {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
     }
 
-    .user-icon {
-      font-size: 1.8rem;
-      color: var(--primary-color);
+    .user-profile i {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      margin-right: 1rem;
+      cursor: pointer;
     }
 
-    .results-content {
+    .user-profile i:hover {
+            color: var(--primary-color);
+        }
+        
+    .card {
+      background-color: var(--white-color);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px var(--card-shadow);
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .results-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
     }
 
-    .card {
-      background-color: var(--white);
+    .score-card {
+      background: var(--white-color);
+      color: var(--text-color);
+      text-align: center;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      flex: 1;
-      min-width: 300px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px var(--card-shadow);
+      border: 1px solid rgba(0, 0, 0, 0.08);
     }
 
-    .score-card, .conversion-card {
-      text-align: center;
-    }
-
-    .achievement-badge {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      font-weight: bold;
-      color: #50c2c9;
+    .score-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     }
 
     .score-number {
       font-size: 3rem;
       font-weight: 700;
-      color: var(--primary-dark);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 1rem 0;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .score-label {
       font-size: 1.1rem;
-      color: var(--text-light);
+      font-weight: 500;
+      opacity: 0.9;
     }
 
-    .conversion-title {
-      font-size: 1.3rem;
+    .achievement-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: var(--white-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      font-size: 1rem;
       font-weight: 600;
-    }
-
-    .rupee-amount {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: var(--primary-dark);
-      margin: 0.5rem 0;
-    }
-
-    .conversion-rate {
-      color: var(--text-light);
+      margin: 1rem 0;
+      box-shadow: 0 4px 6px var(--card-shadow);
     }
 
     .breakdown-list {
@@ -176,121 +235,261 @@
     .breakdown-item {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid var(--secondary-color-1);
-      padding: 0.7rem 0;
+      align-items: center;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      background: var(--secondary-color);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .breakdown-item:hover {
+      background: rgba(80, 194, 201, 0.1);
+      transform: translateX(5px);
     }
 
     .breakdown-item-name {
-      font-weight: 500;
+      font-weight: 600;
+      color: var(--text-color);
+      text-transform: capitalize;
     }
 
     .breakdown-item-points {
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .conversion-card {
+      background: linear-gradient(135deg, rgba(80, 194, 201, 0.1) 0%, rgba(80, 194, 201, 0.05) 100%);
+      border: 2px solid var(--primary-color);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .conversion-card::before {
+      content: '💰';
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+
+    .conversion-title {
+      color: var(--primary-dark);
+      font-size: 1.3rem;
       font-weight: 600;
-      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .rupee-amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--success-color);
+      margin: 1rem 0;
+    }
+
+    .conversion-rate {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 1rem;
     }
 
     .feedback-card {
-      font-size: 1.1rem;
-      color: var(--primary-dark);
+      background: var(--secondary-color);
+      border: 1px solid rgba(80, 194, 201, 0.2);
+      border-radius: 12px;
+      padding: 2rem;
       text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 6px var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      min-width: 200px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: var(--white-color);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary {
+      background: var(--secondary-color);
+      color: var(--text-color);
+      border: 2px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .btn-success {
+      background: var(--primary-color);
+      color: var(--white-color);
+    }
+
+    .btn-success:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     .no-data {
       text-align: center;
       padding: 3rem 2rem;
+      color: var(--text-light);
     }
 
     .no-data-icon {
-      font-size: 3rem;
-      color: var(--primary-color);
+      font-size: 4rem;
       margin-bottom: 1rem;
-    }
-
-    .btn {
-      padding: 0.7rem 1.5rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .btn-primary {
-      background-color: var(--primary-color);
-      color: var(--white);
-    }
-
-    .btn-success {
-      background-color: #50c2c9;
-      color: var(--white);
-    }
-
-    .btn-secondary {
-      background-color: var(--secondary-color-1);
-      color: var(--text-color);
+      opacity: 0.5;
     }
 
     .loading {
       text-align: center;
-      font-size: 1.5rem;
-      color: var(--text-light);
-      margin-top: 3rem;
+      padding: 3rem 2rem;
+      color: var(--primary-color);
     }
 
-    .button-container {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(80, 194, 201, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      animation: spin 1s linear infinite;
+      margin-left: 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-content {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 768px) {
-      .app-container {
-        flex-direction: column;
-      }
-
       .sidebar {
+        display: none;
+      }
+      
+      .main-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+      
+      .search-bar {
         width: 100%;
       }
-
-      .results-grid {
+      
+      .page-title {
+        font-size: 1.5rem;
+      }
+      
+      .score-number {
+        font-size: 2rem;
+      }
+      
+      .button-container {
         flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 300px;
       }
     }
   </style>
 </head>
 <body>
   <div class="app-container">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
-        <img src="assets/whitelogo-Photoroom.jpg" alt="Company Logo" class="logo">
+        <img src="assets/whitelogo-Photoroom.jpg" alt="HealthWaste Logo" class="logo">
       </div>
       <nav class="sidebar-nav">
         <ul>
           <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
-          <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
-          <li><a href="qrcodescanner.html"><i class="fa-solid fa-qrcode"></i> QR Code</a></li>
+          <li><a href="profile_1.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+          <li><a href="scanner.html"><i class="fa-solid fa-qrcode"></i> QR Code</a></li>
           <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
           <li><a href="#" class="active"><i class="fa-solid fa-trophy"></i> Results</a></li>
           <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
-          <li><a href="contactus.html"><i class="fa-solid fa-message"></i> Message</a></li>
+          <li><a href="message.html@"><i class="fa-solid fa-message"></i> Message</a></li>
           <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
-          <li><a href="campaign.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+          <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
         </ul>
       </nav>
     </aside>
 
+    <!-- Main Content -->
     <main class="main-content">
       <header class="main-header">
-        <h1 class="page-title"><i class="fa-solid fa-trophy"></i> Waste Detection Results</h1>
+        <h1 class="page-title">
+          <i class="fa-solid fa-trophy"></i>
+          Waste Detection Results
+        </h1>
         <div class="user-profile">
           <i class="fa-regular fa-bell"></i>
-          <i class="fa-solid fa-user-circle user-icon"></i>
+          <i class="fa-solid fa-user-circle"></i> 
         </div>
       </header>
+
       <div id="resultsContainer">
         <div class="loading">Calculating your rewards...</div>
       </div>
@@ -298,137 +497,153 @@
   </div>
 
   <script>
-    const token = localStorage.getItem('authToken');
-    if (!token) window.location.href = 'login.html';
-
-    const resultsContainer = document.getElementById("resultsContainer");
     const pointsMap = {
       glove: 10,
       syringe: 15,
       mask: 8,
-      needle: 20,
+      bottle: 12,
+      needle: 20
     };
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      const sessionData = sessionStorage.getItem("wasteCounts");
-      const sessionCounts = sessionData ? JSON.parse(sessionData) : {};
-      sessionStorage.removeItem("wasteCounts");
+    // Mock data for demonstration - replace with actual sessionStorage data
+    const counts = {
+      syringe: 3,
+      mask: 5,
+      glove: 2,
+      bottle: 1,
+      needle: 1
+    };
 
-      try {
-        const response = await fetch('/api/detections/history', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (!response.ok) throw new Error('Could not fetch history');
-        const history = await response.json();
+    const resultsContainer = document.getElementById("resultsContainer");
 
-        let sessionPoints = 0;
-        let sessionBreakdownHTML = "";
-        for (let item in sessionCounts) {
-          const count = sessionCounts[item];
+    // Simulate loading for better UX
+    setTimeout(() => {
+      if (Object.keys(counts).length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="card">
+            <div class="no-data">
+              <div class="no-data-icon">📊</div>
+              <h3>No Detection Data Found</h3>
+              <p>Please detect waste items first to see your score and rewards.</p>
+            </div>
+            <div class="button-container">
+              <a href="index.html" class="btn btn-primary">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Start Detection
+              </a>
+            </div>
+          </div>
+        `;
+      } else {
+        let totalPoints = 0;
+        let breakdownHTML = "";
+        let itemCount = 0;
+
+        for (let item in counts) {
+          const count = counts[item];
           const points = (pointsMap[item] || 5) * count;
-          sessionPoints += points;
-          sessionBreakdownHTML += `
+          totalPoints += points;
+          itemCount += count;
+          breakdownHTML += `
             <li class="breakdown-item">
               <div>
                 <span class="breakdown-item-name">${item}:</span>
-                <span style="color: var(--text-light);">${count} items × ${pointsMap[item] || 5} pts</span>
+                <span style="color: var(--text-light);"> ${count} items × ${pointsMap[item] || 5} pts</span>
               </div>
               <span class="breakdown-item-points">${points} points</span>
             </li>
           `;
         }
 
-        let lifetimePoints = 0;
-        history.forEach(detection => {
-          for (let item in detection.items) {
-            const count = detection.items[item];
-            lifetimePoints += (pointsMap[item] || 5) * count;
-          }
-        });
+        // Calculate rupee equivalent
+        const rupeeAmount = Math.floor(totalPoints / 10);
 
-        if (Object.keys(sessionCounts).length === 0 && history.length === 0) {
-          displayNoData();
-          return;
+        // Determine feedback and achievement
+        let feedback = "";
+        let achievement = "";
+        let achievementIcon = "";
+        
+        if (totalPoints >= 200) {
+          feedback = "Outstanding! You're a medical waste detection champion!";
+          achievement = "Champion Badge Earned!";
+          achievementIcon = "🏆";
+        } else if (totalPoints >= 100) {
+          feedback = "Excellent work! You're making hospitals safer.";
+          achievement = "Expert Badge Earned!";
+          achievementIcon = "🥇";
+        } else if (totalPoints >= 50) {
+          feedback = "Great job! You're contributing to healthcare safety.";
+          achievement = "Contributor Badge Earned!";
+          achievementIcon = "🥈";
+        } else {
+          feedback = "Good start! Keep detecting to earn more rewards.";
+          achievement = "Beginner Badge Earned!";
+          achievementIcon = "🥉";
         }
 
-        renderResults(sessionPoints, lifetimePoints, sessionBreakdownHTML);
-      } catch (error) {
-        console.error("Error:", error);
-        displayNoData("Error loading results.");
-      }
-    });
+        // Save points for redemption (simulate localStorage functionality)
+        const previousPoints = 150; // Mock previous points
+        const newTotalPoints = previousPoints + totalPoints;
 
-    function renderResults(sessionPoints, totalPoints, breakdownHTML) {
-      const rupeeAmount = Math.floor(totalPoints / 10);
-      let feedback = "Good start!";
-      let achievement = "Beginner Badge";
-      let achievementIcon = "🥉";
-
-      if (totalPoints >= 200) {
-        feedback = "Outstanding! You're a medical waste detection champion!";
-        achievement = "Champion Badge";
-        achievementIcon = "🏆";
-      } else if (totalPoints >= 100) {
-        feedback = "Excellent work! You're making hospitals safer.";
-        achievement = "Expert Badge";
-        achievementIcon = "🥇";
-      } else if (totalPoints >= 50) {
-        feedback = "Great job! You're contributing to healthcare safety.";
-        achievement = "Contributor Badge";
-        achievementIcon = "🥈";
-      }
-
-      resultsContainer.innerHTML = `
-        <div class="results-content">
-          <div class="results-grid">
-            <div class="card">
-              <div class="score-card">
-                <div class="achievement-badge">${achievementIcon} ${achievement}</div>
-                <div class="score-number">${sessionPoints}</div>
-                <div class="score-label">Session Points Earned</div>
+        resultsContainer.innerHTML = `
+          <div class="results-content">
+            <div class="results-grid">
+              <div class="card">
+                <div class="score-card">
+                  <div class="achievement-badge">
+                    ${achievementIcon} ${achievement}
+                  </div>
+                  <div class="score-number">${totalPoints}</div>
+                  <div class="score-label">Session Points</div>
+                </div>
+              </div>
+              
+              <div class="card">
+                <div class="conversion-card">
+                  <h3 class="conversion-title">💰 Reward Conversion</h3>
+                  <div class="rupee-amount">₹${rupeeAmount}</div>
+                  <div class="conversion-rate">Exchange Rate: 10 Points = ₹1 INR</div>
+                  ${previousPoints > 0 ? `
+                    <div style="margin-top: 1rem; color: var(--text-light); font-size: 0.9rem;">
+                      Previous Balance: ${previousPoints} points<br>
+                      <strong>New Total: ${newTotalPoints} points (₹${Math.floor(newTotalPoints / 10)})</strong>
+                    </div>
+                  ` : ''}
+                </div>
               </div>
             </div>
+
             <div class="card">
-              <div class="conversion-card">
-                <h3 class="conversion-title">💰 Total Rewards Balance</h3>
-                <div class="rupee-amount">₹${rupeeAmount}</div>
-                <div class="conversion-rate">Total Lifetime Points: <strong>${totalPoints}</strong></div>
-              </div>
-            </div>
-          </div>
-          ${breakdownHTML ? `
-            <div class="card">
-              <h3 class="card-title"><i class="fa-solid fa-chart-bar"></i> This Session's Breakdown</h3>
+              <h3 class="card-title">
+                <i class="fa-solid fa-chart-bar"></i>
+                Detection Breakdown
+              </h3>
               <ul class="breakdown-list">${breakdownHTML}</ul>
             </div>
-          ` : ''}
-          <div class="card">
-            <div class="feedback-card"><i class="fa-solid fa-star" style="color: var(--warning-color);"></i> ${feedback}</div>
-          </div>
-          <div class="button-container">
-            <a href="detection.html" class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i> Detect More Items</a>
-            <a href="redemption.html" class="btn btn-success"><i class="fa-solid fa-coins"></i> Redeem Points (${totalPoints} pts)</a>
-          </div>
-        </div>`;
-    }
 
-    function displayNoData(message = "No Detection Data Found") {
-      resultsContainer.innerHTML = `
-        <div class="card">
-          <div class="no-data">
-            <div class="no-data-icon">📊</div>
-            <h3>${message}</h3>
-            <p>Please detect waste items first to see your score and rewards.</p>
-            <div class="button-container" style="margin-top: 2rem;">
-              <a href="detection.html" class="btn btn-primary"><i class="fa-solid fa-camera"></i> Start Detection</a>
+            <div class="card">
+              <div class="feedback-card">
+                <i class="fa-solid fa-star" style="color: var(--warning-color); margin-right: 0.5rem;"></i>
+                ${feedback}
+              </div>
+            </div>
+
+            <div class="button-container">
+              <a href="index.html" class="btn btn-secondary">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Detect More Items
+              </a>
+              ${totalPoints > 0 ? `
+                <a href="redemption.html" class="btn btn-success">
+                  <i class="fa-solid fa-coins"></i>
+                  Redeem Points (${newTotalPoints} pts)
+                </a>
+              ` : ''}
             </div>
           </div>
-        </div>
-      `;
-    }
+        `;
+      }
+    }, 1500);
   </script>
 </body>
 </html>
-  
