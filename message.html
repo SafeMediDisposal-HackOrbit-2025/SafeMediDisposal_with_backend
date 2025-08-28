@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - SafeMediDisposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #50c2c9;
+            --primary-dark: #028090;
+            --secondary-color: #F0F3F4;
+            --background-color: #CADBDB;
+            --text-color: #2C3E50;
+            --text-light: #808B96;
+            --white-color: #FFFFFF;
+            --card-shadow: rgba(0, 0, 0, 0.05);
+            --success-color: #27AE60;
+            --danger-color: #E74C3C;
+            --warning-color: #F39C12;
+            --dark-card-background: #171821;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* App Container Layout */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: var(--primary-color);
+            color: var(--white-color);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .sidebar-header .logo {
+            max-height: 70px;
+            width: auto;
+            margin-right: 0.5rem;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-nav a.active, .sidebar-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-nav a.active {
+            font-weight: 600;
+        }
+
+        .sidebar-nav a i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile i {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-right: 1rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .user-profile i:hover {
+            color: var(--primary-color);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--white-color);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Contact Info Card */
+        .contact-info {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-color);
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--secondary-color);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            background: rgba(80, 194, 201, 0.1);
+            transform: translateX(5px);
+        }
+
+        .contact-method i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            width: 30px;
+            text-align: center;
+        }
+
+        .contact-details h4 {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Form */
+        .contact-form-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-color);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background: var(--white-color);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(80, 194, 201, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: var(--white-color);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Form Messages */
+        #form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .success {
+            color: var(--success-color);
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid rgba(39, 174, 96, 0.2);
+        }
+
+        .error {
+            color: var(--danger-color);
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+
+        /* Additional Info Card */
+        .additional-info {
+            grid-column: 1 / -1;
+            background: rgba(80, 194, 201, 0.1);
+            border: 2px solid var(--primary-color);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .additional-info::before {
+            content: '📞';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        .additional-info h3 {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .additional-info p {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 2rem;
+        }
+
+        .faq-item {
+            background: var(--white-color);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: var(--secondary-color);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(80, 194, 201, 0.1);
+        }
+
+        .faq-answer {
+            padding: 1rem;
+            color: var(--text-light);
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .main-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/whitelogo-Photoroom.jpg" alt="HealthWaste Logo" class="logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+                    <li><a href="profile_1.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                    <li><a href="scanner.html"><i class="fa-solid fa-qrcode"></i> QR Code</a></li>
+                    <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
+                    <li><a href="gamification.html"><i class="fa-solid fa-trophy"></i> Results</a></li>
+                    <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+                    <li><a href="#" class="active"><i class="fa-solid fa-message"></i> Message</a></li>
+                    <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <h1 class="page-title">Contact Us</h1>
+                <div class="user-profile">
+                    <i class="fa-regular fa-bell"></i>
+                    <i class="fa-solid fa-user-circle"></i>
+                </div>
+            </header>
+
+            <div class="contact-container">
+                <!-- Contact Information Card -->
+                <div class="card contact-info">
+                    <div class="hero-section">
+                        <h2 class="hero-title">Get in Touch</h2>
+                        <p class="hero-subtitle">We'd love to hear from you and help with your medical waste disposal needs</p>
+                    </div>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fa-solid fa-phone"></i>
+                            <div class="contact-details">
+                                <h4>Phone Support</h4>
+                                <p>+91 64567-89234</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div class="contact-details">
+                                <h4>Email Support</h4>
+                                <p>SafeMediDisposal@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <i class="fa-solid fa-clock"></i>
+                            <div class="contact-details">
+                                <h4>Business Hours</h4>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <i class="fa-solid fa-headset"></i>
+                            <div class="contact-details">
+                                <h4>24/7 Emergency</h4>
+                                <p>Available for urgent waste disposal needs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Card -->
+                <div class="card contact-form-card">
+                    <h3 class="card-title">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Send us a Message
+                    </h3>
+                    
+                    <form id="contact-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Brief description of your inquiry">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                        
+                        <div id="form-message"></div>
+                    </form>
+                </div>
+
+                <!-- Additional Information Card -->
+                <div class="card additional-info">
+                    <h3>Why Choose SafeMediDisposal?</h3>
+                    <p>We're committed to providing safe, reliable, and environmentally responsible medical waste disposal services. Our dedicated team ensures compliance with all regulations while making the process simple and rewarding for you.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="card faq-section">
+                <h3 class="card-title">
+                    <i class="fa-solid fa-circle-question"></i>
+                    Frequently Asked Questions
+                </h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I schedule a waste pickup?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        You can schedule a pickup through our dashboard, mobile app, or by calling our support team. We offer flexible scheduling to meet your needs.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What types of medical waste do you handle?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        We handle various types of medical waste including sharps, pharmaceutical waste, pathological waste, and contaminated materials following strict safety protocols.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does the rewards system work?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Earn points for every disposal, track your environmental impact, and redeem points for rewards. It's our way of encouraging responsible waste management.
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    if (a !== answer) {
+                        a.classList.remove('active');
+                        a.previousElementSibling.querySelector('i').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    }
+                });
+                
+                // Toggle current FAQ item
+                answer.classList.toggle('active');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
+
+        // Form Submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formMessage = document.getElementById('form-message');
+            const submitBtn = document.querySelector('.submit-btn');
+            
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                formMessage.className = 'success';
+                formMessage.textContent = 'Thank you for your message! We\'ll get back to you within 24 hours.';
+                
+                // Reset form
+                this.reset();
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+                
+                // Clear message after 5 seconds
+                setTimeout(() => {
+                    formMessage.textContent = '';
+                    formMessage.className = '';
+                }, 5000);
+            }, 2000);
+        });
+
+        // Form validation
+        const inputs = document.querySelectorAll('input[required], textarea[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.style.borderColor = 'var(--danger-color)';
+                } else {
+                    this.style.borderColor = 'var(--success-color)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
